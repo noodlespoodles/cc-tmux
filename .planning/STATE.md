@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-20T15:10:12.051Z"
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-20T15:14:52.485Z"
 progress:
   total_phases: 6
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 4
-  completed_plans: 3
+  completed_plans: 4
 ---
 
 # Project State
@@ -47,6 +47,7 @@ Plan: 2 of 2
 - Trend: stable
 
 *Updated after each plan completion*
+| Phase 02-ssh-security P02 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,9 @@ Recent decisions affecting current work:
 - [Phase 02]: Drop-in renamed to 00-cc-tmux.conf for alphabetical precedence in sshd_config.d
 - [Phase 02]: Protocol 2 omitted -- removed from OpenSSH 7.6, causes parse errors on modern systems
 - [Phase 02]: sshd config validated with sshd -t before restart, rollback to safe config on failure
+- [Phase 02-02]: log_step called in install.sh before step_harden_ssh rather than modifying Plan 01's module
+- [Phase 02-02]: Sudoers uses service wildcards (service ssh *, service fail2ban *) instead of listing subcommands
+- [Phase 02-02]: Verification expanded to 10 checks (7 Phase 1 + 3 Phase 2 SSH security checks)
 
 ### Pending Todos
 
@@ -84,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T15:10:12.038Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-03-20T15:14:52.475Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None

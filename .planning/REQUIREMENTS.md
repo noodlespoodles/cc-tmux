@@ -95,45 +95,45 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INST-01 | TBD | Pending |
-| INST-02 | TBD | Pending |
-| INST-03 | TBD | Pending |
-| INST-04 | TBD | Pending |
-| INST-05 | TBD | Pending |
-| INST-06 | TBD | Pending |
-| INST-07 | TBD | Pending |
-| INST-08 | TBD | Pending |
-| SEC-01 | TBD | Pending |
-| SEC-02 | TBD | Pending |
-| SEC-03 | TBD | Pending |
-| SEC-04 | TBD | Pending |
-| TUN-01 | TBD | Pending |
-| TUN-02 | TBD | Pending |
-| TUN-03 | TBD | Pending |
-| TUN-04 | TBD | Pending |
-| WRK-01 | TBD | Pending |
-| WRK-02 | TBD | Pending |
-| WRK-03 | TBD | Pending |
-| WRK-04 | TBD | Pending |
-| WRK-05 | TBD | Pending |
-| MOB-01 | TBD | Pending |
-| MOB-02 | TBD | Pending |
-| MOB-03 | TBD | Pending |
-| MOB-04 | TBD | Pending |
-| ROB-01 | TBD | Pending |
-| ROB-02 | TBD | Pending |
-| ROB-03 | TBD | Pending |
-| ROB-04 | TBD | Pending |
-| ROB-05 | TBD | Pending |
-| DOC-01 | TBD | Pending |
-| DOC-02 | TBD | Pending |
-| DOC-03 | TBD | Pending |
+| INST-01 | Phase 1 | Pending |
+| INST-02 | Phase 1 | Pending |
+| INST-03 | Phase 1 | Pending |
+| INST-04 | Phase 1 | Pending |
+| INST-05 | Phase 1 | Pending |
+| INST-06 | Phase 1 | Pending |
+| INST-07 | Phase 5 | Pending |
+| INST-08 | Phase 6 | Pending |
+| SEC-01 | Phase 2 | Pending |
+| SEC-02 | Phase 2 | Pending |
+| SEC-03 | Phase 2 | Pending |
+| SEC-04 | Phase 2 | Pending |
+| TUN-01 | Phase 3 | Pending |
+| TUN-02 | Phase 3 | Pending |
+| TUN-03 | Phase 3 | Pending |
+| TUN-04 | Phase 3 | Pending |
+| WRK-01 | Phase 4 | Pending |
+| WRK-02 | Phase 4 | Pending |
+| WRK-03 | Phase 4 | Pending |
+| WRK-04 | Phase 4 | Pending |
+| WRK-05 | Phase 4 | Pending |
+| MOB-01 | Phase 4 | Pending |
+| MOB-02 | Phase 4 | Pending |
+| MOB-03 | Phase 4 | Pending |
+| MOB-04 | Phase 6 | Pending |
+| ROB-01 | Phase 5 | Pending |
+| ROB-02 | Phase 5 | Pending |
+| ROB-03 | Phase 5 | Pending |
+| ROB-04 | Phase 1 | Pending |
+| ROB-05 | Phase 5 | Pending |
+| DOC-01 | Phase 6 | Pending |
+| DOC-02 | Phase 6 | Pending |
+| DOC-03 | Phase 6 | Pending |
 
 **Coverage:**
 - v1 requirements: 33 total
-- Mapped to phases: 0
-- Unmapped: 33 (will be mapped during roadmap creation)
+- Mapped to phases: 33
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-20*
-*Last updated: 2026-03-20 after initial definition*
+*Last updated: 2026-03-20 after roadmap creation*

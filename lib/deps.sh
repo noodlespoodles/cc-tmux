@@ -22,6 +22,7 @@ step_install_deps() {
     install_package "openssh-server"
     install_package "jq"
     install_package "fail2ban"
+    install_package "qrencode"
 }
 
 # ------------------------------------------

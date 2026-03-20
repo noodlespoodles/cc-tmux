@@ -313,3 +313,35 @@ step_verify() {
     echo ""
     echo "  Results: ${GREEN}$pass passed${RESET}, ${RED}$fail failed${RESET}"
 }
+
+# ------------------------------------------
+# Create Windows desktop shortcut
+# ------------------------------------------
+
+create_desktop_shortcut() {
+    local win_username
+    win_username=$(get_config "WIN_USERNAME")
+    local wsl_distro
+    wsl_distro=$(get_config "WSL_DISTRO")
+
+    # Check powershell.exe is accessible
+    if ! command -v powershell.exe &>/dev/null; then
+        log_warn "powershell.exe not found -- skipping desktop shortcut"
+        log_hint "Create manually: see README.md"
+        return 0
+    fi
+
+    local desktop_path="/mnt/c/Users/$win_username/Desktop"
+    if [[ ! -d "$desktop_path" ]]; then
+        log_warn "Windows Desktop not found at $desktop_path -- skipping shortcut"
+        return 0
+    fi
+
+    # Use PowerShell to create .lnk via WScript.Shell COM
+    if powershell.exe -NoProfile -Command "\$WshShell = New-Object -ComObject WScript.Shell; \$Shortcut = \$WshShell.CreateShortcut(\"\$env:USERPROFILE\\Desktop\\Claude Workspace.lnk\"); \$Shortcut.TargetPath = 'wsl.exe'; \$Shortcut.Arguments = '-d $wsl_distro -- bash -lc \"~/startup.sh\"'; \$Shortcut.IconLocation = 'C:\\Windows\\System32\\wsl.exe,0'; \$Shortcut.Save()" 2>/dev/null; then
+        log_ok "Desktop shortcut created: Claude Workspace"
+    else
+        log_warn "Could not create desktop shortcut"
+        log_hint "Create manually: see README.md"
+    fi
+}

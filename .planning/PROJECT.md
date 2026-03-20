@@ -26,6 +26,11 @@ Non-technical users can install this in minutes and seamlessly access their Clau
 - Tunnel auto-start with workspace and address display — Validated in Phase 3
 - Tunnel auto-reconnect with exponential backoff watchdog — Validated in Phase 3
 - CLI tunnel status command with --json support — Validated in Phase 3
+- tmux workspace with project tabs from config — Validated in Phase 4
+- cc-tmux CLI (start/stop/project add/remove/list/tunnel) — Validated in Phase 4
+- Mobile auto-detection via terminal width — Validated in Phase 4
+- Manual mobile/desktop toggle keybindings — Validated in Phase 4
+- Catppuccin-themed tmux config with mouse and keybindings — Validated in Phase 4
 
 ### Active
 - [ ] Robust SSH configuration with proper security defaults (key-based auth, fail2ban or equivalent)
@@ -84,4 +89,4 @@ The target audience is people who use Claude Code daily but aren't sysadmins. Th
 | Interactive installer over config file | Non-technical users prefer guided setup over editing YAML | — Pending |
 
 ---
-*Last updated: 2026-03-20 after Phase 3 completion*
+*Last updated: 2026-03-20 after Phase 4 completion*

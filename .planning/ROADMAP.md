@@ -31,11 +31,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Re-running the installer on an already-configured system completes successfully without duplicating config or breaking existing setup
   4. Installer prompts the user for project folders and ngrok auth token with clear instructions at each step
   5. Cloning the repo on Windows produces working scripts (no CRLF line ending breakage)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md -- Repository foundation (.gitattributes) and core library modules (common.sh, detect.sh, config.sh)
+- [ ] 01-02-PLAN.md -- Installer entry point (install.sh), dependency management (deps.sh), system setup (setup.sh), and bashrc hook
 
 ### Phase 2: SSH & Security
 **Goal**: User's SSH service runs with defense-in-depth security that is safe to expose through a public tunnel
@@ -119,7 +119,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Installer | 0/? | Not started | - |
+| 1. Foundation & Installer | 0/2 | Planning complete | - |
 | 2. SSH & Security | 0/? | Not started | - |
 | 3. Tunnel Layer | 0/? | Not started | - |
 | 4. Workspace & Mobile | 0/? | Not started | - |

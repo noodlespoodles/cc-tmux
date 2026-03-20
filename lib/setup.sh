@@ -44,7 +44,7 @@ setup_sudoers() {
 
     # Write sudoers content to temp file
     cat > "$tmp_file" <<EOF
-$USER ALL=(ALL) NOPASSWD: /usr/sbin/service ssh start, /usr/sbin/service ssh restart, /usr/sbin/service ssh status
+$USER ALL=(ALL) NOPASSWD: /usr/sbin/service ssh *, /usr/sbin/service fail2ban *, /usr/sbin/sshd -t, /usr/sbin/sshd -T, /usr/bin/fail2ban-client status *, /usr/bin/fail2ban-client status
 EOF
     chmod 0440 "$tmp_file"
 
@@ -90,7 +90,7 @@ step_configure() {
 # ------------------------------------------
 
 step_deploy() {
-    log_step 7 "Deploying runtime files..."
+    log_step 8 "Deploying runtime files..."
 
     local repo_dir
     repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -187,6 +187,33 @@ step_verify() {
         ((pass++))
     else
         echo "  ${RED}[fail]${RESET} runtime lib not deployed"
+        ((fail++))
+    fi
+
+    # Check SSH key pair
+    if [[ -f "$CC_TMUX_DIR/keys/cc-tmux_ed25519" ]]; then
+        echo "  ${GREEN}[pass]${RESET} SSH key pair exists"
+        ((pass++))
+    else
+        echo "  ${RED}[fail]${RESET} SSH key pair not found"
+        ((fail++))
+    fi
+
+    # Check hardened SSH config
+    if [[ -f /etc/ssh/sshd_config.d/00-cc-tmux.conf ]]; then
+        echo "  ${GREEN}[pass]${RESET} Hardened SSH config deployed"
+        ((pass++))
+    else
+        echo "  ${RED}[fail]${RESET} Hardened SSH config not found"
+        ((fail++))
+    fi
+
+    # Check fail2ban jail
+    if [[ -f /etc/fail2ban/jail.d/cc-tmux.conf ]]; then
+        echo "  ${GREEN}[pass]${RESET} fail2ban SSH jail configured"
+        ((pass++))
+    else
+        echo "  ${RED}[fail]${RESET} fail2ban SSH jail not configured"
         ((fail++))
     fi
 

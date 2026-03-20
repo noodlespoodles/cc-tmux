@@ -27,10 +27,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Tunnel
 
-- [ ] **TUN-01**: ngrok tunnel starts automatically with workspace and displays connection info
-- [ ] **TUN-02**: Tunnel auto-reconnects when connection drops or times out
-- [ ] **TUN-03**: User can check current tunnel address anytime via CLI command
-- [ ] **TUN-04**: Tunnel architecture is pluggable — ngrok is default, other providers can be swapped in
+- [x] **TUN-01**: ngrok tunnel starts automatically with workspace and displays connection info
+- [x] **TUN-02**: Tunnel auto-reconnects when connection drops or times out
+- [x] **TUN-03**: User can check current tunnel address anytime via CLI command
+- [x] **TUN-04**: Tunnel architecture is pluggable — ngrok is default, other providers can be swapped in
 
 ### Workspace
 
@@ -107,10 +107,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | SEC-02 | Phase 2 | Complete |
 | SEC-03 | Phase 2 | Complete |
 | SEC-04 | Phase 2 | Complete |
-| TUN-01 | Phase 3 | Pending |
-| TUN-02 | Phase 3 | Pending |
-| TUN-03 | Phase 3 | Pending |
-| TUN-04 | Phase 3 | Pending |
+| TUN-01 | Phase 3 | Complete |
+| TUN-02 | Phase 3 | Complete |
+| TUN-03 | Phase 3 | Complete |
+| TUN-04 | Phase 3 | Complete |
 | WRK-01 | Phase 4 | Pending |
 | WRK-02 | Phase 4 | Pending |
 | WRK-03 | Phase 4 | Pending |

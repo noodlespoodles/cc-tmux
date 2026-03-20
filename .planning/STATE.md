@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Phase 3 context gathered
-last_updated: "2026-03-20T15:23:35.102Z"
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-20T15:44:01.097Z"
 progress:
   total_phases: 6
   completed_phases: 2
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 6
+  completed_plans: 5
 ---
 
 # Project State
@@ -19,11 +19,11 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-20)
 
 **Core value:** Non-technical users can install this in minutes and seamlessly access their Claude Code sessions from PC and phone without understanding WSL, SSH, or tmux internals.
-**Current focus:** Phase 02 — ssh-security
+**Current focus:** Phase 03 — tunnel-layer
 
 ## Current Position
 
-Phase: 02 (ssh-security) — EXECUTING
+Phase: 03 (tunnel-layer) — EXECUTING
 Plan: 2 of 2
 
 ## Performance Metrics
@@ -48,6 +48,7 @@ Plan: 2 of 2
 
 *Updated after each plan completion*
 | Phase 02-ssh-security P02 | 2min | 2 tasks | 2 files |
+| Phase 03 P01 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -75,6 +76,8 @@ Recent decisions affecting current work:
 - [Phase 02-02]: log_step called in install.sh before step_harden_ssh rather than modifying Plan 01's module
 - [Phase 02-02]: Sudoers uses service wildcards (service ssh *, service fail2ban *) instead of listing subcommands
 - [Phase 02-02]: Verification expanded to 10 checks (7 Phase 1 + 3 Phase 2 SSH security checks)
+- [Phase 03-01]: Watchdog inlines address persistence in nohup subshell -- parent functions inaccessible
+- [Phase 03-01]: ASCII dash separators in status output for WSL2 terminal compatibility
 
 ### Pending Todos
 
@@ -88,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T15:23:35.092Z
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-tunnel-layer/03-CONTEXT.md
+Last session: 2026-03-20T15:44:01.093Z
+Stopped at: Completed 03-01-PLAN.md
+Resume file: None

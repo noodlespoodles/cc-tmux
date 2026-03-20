@@ -30,6 +30,7 @@ source "$SCRIPT_DIR/lib/detect.sh"
 source "$SCRIPT_DIR/lib/config.sh"
 source "$SCRIPT_DIR/lib/deps.sh"
 source "$SCRIPT_DIR/lib/setup.sh"
+source "$SCRIPT_DIR/lib/ssh-hardening.sh"
 
 # ------------------------------------------
 # Argument parsing
@@ -272,18 +273,20 @@ print_summary() {
 # ------------------------------------------
 
 main() {
-    TOTAL_STEPS=7
+    TOTAL_STEPS=8
     export TOTAL_STEPS
 
     print_banner
 
-    step_preflight          # [1/7]
-    step_install_deps       # [2/7]
-    step_install_ngrok      # [3/7]
-    step_detect_environment # [4/7]
-    step_configure          # [5/7]
-    step_setup_system       # [6/7]
-    step_deploy             # [7/7]
+    step_preflight          # [1/8]
+    step_install_deps       # [2/8]
+    step_install_ngrok      # [3/8]
+    step_detect_environment # [4/8]
+    step_configure          # [5/8]
+    step_setup_system       # [6/8]
+    log_step 7 "Hardening SSH security..."
+    step_harden_ssh         # [7/8]
+    step_deploy             # [8/8]
     step_verify             # Final verification (unnumbered)
 
     print_summary

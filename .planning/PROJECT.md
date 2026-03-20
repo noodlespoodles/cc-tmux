@@ -22,6 +22,10 @@ Non-technical users can install this in minutes and seamlessly access their Clau
 - Hardened sshd config (no root, limited attempts, AllowUsers) — Validated in Phase 2
 - fail2ban brute-force protection with auto-detected backend — Validated in Phase 2
 - SSH key display with Termius import instructions — Validated in Phase 2
+- Pluggable tunnel architecture (ngrok default, swappable providers) — Validated in Phase 3
+- Tunnel auto-start with workspace and address display — Validated in Phase 3
+- Tunnel auto-reconnect with exponential backoff watchdog — Validated in Phase 3
+- CLI tunnel status command with --json support — Validated in Phase 3
 
 ### Active
 - [ ] Robust SSH configuration with proper security defaults (key-based auth, fail2ban or equivalent)
@@ -80,4 +84,4 @@ The target audience is people who use Claude Code daily but aren't sysadmins. Th
 | Interactive installer over config file | Non-technical users prefer guided setup over editing YAML | — Pending |
 
 ---
-*Last updated: 2026-03-20 after Phase 2 completion*
+*Last updated: 2026-03-20 after Phase 3 completion*

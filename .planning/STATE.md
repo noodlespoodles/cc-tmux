@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-03-20T14:30:33.377Z"
+status: phase-complete
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-03-20T14:38:23.263Z"
 progress:
   total_phases: 6
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Project State
@@ -19,31 +19,31 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-20)
 
 **Core value:** Non-technical users can install this in minutes and seamlessly access their Claude Code sessions from PC and phone without understanding WSL, SSH, or tmux internals.
-**Current focus:** Phase 01 — foundation-installer
+**Current focus:** Phase 01 — foundation-installer (COMPLETE)
 
 ## Current Position
 
-Phase: 01 (foundation-installer) — EXECUTING
-Plan: 2 of 2
+Phase: 01 (foundation-installer) — COMPLETE
+Plan: 2 of 2 (all plans complete)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 1
-- Average duration: 2min
-- Total execution time: 0.03 hours
+- Total plans completed: 2
+- Average duration: 3min
+- Total execution time: 0.10 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation-installer | 1 | 2min | 2min |
+| 01-foundation-installer | 2 | 6min | 3min |
 
 **Recent Trend:**
 
-- Last 5 plans: 01-01 (2min)
-- Trend: starting
+- Last 5 plans: 01-01 (2min), 01-02 (4min)
+- Trend: stable
 
 *Updated after each plan completion*
 
@@ -62,6 +62,10 @@ Recent decisions affecting current work:
 - [01-01]: Sentinel markers use CC-TMUX:name:START/END pattern for bashrc block management
 - [01-01]: config.env uses quoted values for safety with Windows path spaces
 - [01-01]: get_config uses subshell sourcing to avoid polluting caller environment
+- [Phase 01]: ngrok installed via apt repository, not snap -- snap fails on WSL2 without systemd
+- [Phase 01]: Sudoers validated with visudo -c before deployment -- prevents lockout from syntax errors
+- [Phase 01]: bashrc-hook.sh includes SSH_CONNECTION guard as belt-and-suspenders defense
+- [Phase 01]: CRLF self-healing in install.sh auto-fixes all .sh files before re-executing
 
 ### Pending Todos
 
@@ -75,6 +79,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T14:29:40Z
-Stopped at: Completed 01-01-PLAN.md
-Resume file: .planning/phases/01-foundation-installer/01-02-PLAN.md
+Last session: 2026-03-20T14:38:23.260Z
+Stopped at: Completed 01-02-PLAN.md
+Resume file: None

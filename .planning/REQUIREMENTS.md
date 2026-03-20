@@ -9,12 +9,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Installation
 
-- [ ] **INST-01**: User can install everything with a single command (`bash install.sh`) that handles all dependencies
+- [x] **INST-01**: User can install everything with a single command (`bash install.sh`) that handles all dependencies
 - [x] **INST-02**: Installer auto-detects Windows username without manual placeholder replacement
 - [x] **INST-03**: Installer is idempotent — re-running it doesn't break or duplicate anything
 - [x] **INST-04**: Installer provides clear progress indicators and error messages at each step
-- [ ] **INST-05**: Installer interactively asks user for project folders (guided setup, not config file editing)
-- [ ] **INST-06**: Installer handles ngrok auth token setup with clear instructions
+- [x] **INST-05**: Installer interactively asks user for project folders (guided setup, not config file editing)
+- [x] **INST-06**: Installer handles ngrok auth token setup with clear instructions
 - [ ] **INST-07**: User can uninstall cleanly with a single command that reverses all changes
 - [ ] **INST-08**: Installer creates Windows desktop shortcut automatically (no manual PowerShell step)
 
@@ -95,12 +95,12 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INST-01 | Phase 1 | Pending |
+| INST-01 | Phase 1 | Complete |
 | INST-02 | Phase 1 | Complete |
 | INST-03 | Phase 1 | Complete |
 | INST-04 | Phase 1 | Complete |
-| INST-05 | Phase 1 | Pending |
-| INST-06 | Phase 1 | Pending |
+| INST-05 | Phase 1 | Complete |
+| INST-06 | Phase 1 | Complete |
 | INST-07 | Phase 5 | Pending |
 | INST-08 | Phase 6 | Pending |
 | SEC-01 | Phase 2 | Pending |

@@ -12,7 +12,7 @@ CC x TMUX v2 transforms a working-but-fragile proof-of-concept into a robust, se
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation & Installer** - Idempotent one-command installer with dependency management, auto-detection, and config system
+- [x] **Phase 1: Foundation & Installer** - Idempotent one-command installer with dependency management, auto-detection, and config system
 - [ ] **Phase 2: SSH & Security** - Hardened SSH with key-based auth, fail2ban, and systemd service management
 - [ ] **Phase 3: Tunnel Layer** - Pluggable tunnel architecture with ngrok default, auto-reconnect, and status commands
 - [ ] **Phase 4: Workspace & Mobile** - tmux workspace with project management, session persistence, and mobile-adaptive layout
@@ -34,8 +34,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Repository foundation (.gitattributes) and core library modules (common.sh, detect.sh, config.sh)
-- [ ] 01-02-PLAN.md -- Installer entry point (install.sh), dependency management (deps.sh), system setup (setup.sh), and bashrc hook
+- [x] 01-01-PLAN.md -- Repository foundation (.gitattributes) and core library modules (common.sh, detect.sh, config.sh)
+- [x] 01-02-PLAN.md -- Installer entry point (install.sh), dependency management (deps.sh), system setup (setup.sh), and bashrc hook
 
 ### Phase 2: SSH & Security
 **Goal**: User's SSH service runs with defense-in-depth security that is safe to expose through a public tunnel
@@ -119,7 +119,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Installer | 1/2 | In Progress|  |
+| 1. Foundation & Installer | 2/2 | Complete | 2026-03-20 |
 | 2. SSH & Security | 0/? | Not started | - |
 | 3. Tunnel Layer | 0/? | Not started | - |
 | 4. Workspace & Mobile | 0/? | Not started | - |

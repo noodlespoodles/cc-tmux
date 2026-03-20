@@ -1,0 +1,17 @@
+# Force LF line endings for all text files
+* text=auto eol=lf
+
+# Explicitly mark shell scripts
+*.sh text eol=lf
+*.conf text eol=lf
+*.tpl text eol=lf
+*.env text eol=lf
+
+# Explicitly mark Windows files that need CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary files
+*.png binary
+*.ico binary

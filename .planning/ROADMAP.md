@@ -61,10 +61,11 @@ Plans:
   2. If the tunnel drops or times out, it reconnects automatically without user intervention
   3. User can run a CLI command (e.g., `cc-tmux tunnel`) to check the current tunnel address at any time
   4. Tunnel provider is implemented as a swappable module -- replacing ngrok with another provider requires changing one config value and adding one script file
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
+- [ ] 03-01-PLAN.md -- Pluggable tunnel provider interface (lib/tunnel/provider.sh) and ngrok implementation (lib/tunnel/ngrok.sh) with watchdog auto-reconnect
+- [ ] 03-02-PLAN.md -- Wire tunnel into installer (deployment, verification), create startup.sh entry point
 
 ### Phase 4: Workspace & Mobile
 **Goal**: Users have a complete tmux workspace with managed project tabs that adapts its layout for phone access
@@ -122,7 +123,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 |-------|----------------|--------|-----------|
 | 1. Foundation & Installer | 2/2 | Complete | 2026-03-20 |
 | 2. SSH & Security | 1/2 | In Progress|  |
-| 3. Tunnel Layer | 0/? | Not started | - |
+| 3. Tunnel Layer | 0/2 | Not started | - |
 | 4. Workspace & Mobile | 0/? | Not started | - |
 | 5. Robustness & Lifecycle | 0/? | Not started | - |
 | 6. User Experience & Documentation | 0/? | Not started | - |

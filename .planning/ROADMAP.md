@@ -46,10 +46,11 @@ Plans:
   2. SSH daemon runs with hardened settings (no root login, limited auth attempts, protocol 2 only)
   3. fail2ban is active and bans IPs after repeated failed SSH login attempts
   4. During install, the SSH key pair is generated and the private key is displayed with clear instructions for importing into Termius on phone
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD
+- [ ] 02-01-PLAN.md -- SSH hardening module (lib/ssh-hardening.sh) with key generation, sshd config hardening, fail2ban setup, and key display
+- [ ] 02-02-PLAN.md -- Wire ssh-hardening.sh into install.sh, update sudoers and verification checks
 
 ### Phase 3: Tunnel Layer
 **Goal**: User's local SSH is accessible from anywhere via an auto-managed tunnel with a pluggable provider architecture
@@ -120,7 +121,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Installer | 2/2 | Complete | 2026-03-20 |
-| 2. SSH & Security | 0/? | Not started | - |
+| 2. SSH & Security | 0/2 | Not started | - |
 | 3. Tunnel Layer | 0/? | Not started | - |
 | 4. Workspace & Mobile | 0/? | Not started | - |
 | 5. Robustness & Lifecycle | 0/? | Not started | - |

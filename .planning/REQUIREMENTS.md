@@ -20,10 +20,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Security
 
-- [ ] **SEC-01**: SSH uses Ed25519 key-based authentication by default (not password-only)
-- [ ] **SEC-02**: SSH daemon runs with hardened configuration (no root login, limited auth attempts)
-- [ ] **SEC-03**: fail2ban or equivalent protects against brute-force SSH attempts
-- [ ] **SEC-04**: SSH keys are generated during install and displayed for easy phone setup
+- [x] **SEC-01**: SSH uses Ed25519 key-based authentication by default (not password-only)
+- [x] **SEC-02**: SSH daemon runs with hardened configuration (no root login, limited auth attempts)
+- [x] **SEC-03**: fail2ban or equivalent protects against brute-force SSH attempts
+- [x] **SEC-04**: SSH keys are generated during install and displayed for easy phone setup
 
 ### Tunnel
 
@@ -103,10 +103,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | INST-06 | Phase 1 | Complete |
 | INST-07 | Phase 5 | Pending |
 | INST-08 | Phase 6 | Pending |
-| SEC-01 | Phase 2 | Pending |
-| SEC-02 | Phase 2 | Pending |
-| SEC-03 | Phase 2 | Pending |
-| SEC-04 | Phase 2 | Pending |
+| SEC-01 | Phase 2 | Complete |
+| SEC-02 | Phase 2 | Complete |
+| SEC-03 | Phase 2 | Complete |
+| SEC-04 | Phase 2 | Complete |
 | TUN-01 | Phase 3 | Pending |
 | TUN-02 | Phase 3 | Pending |
 | TUN-03 | Phase 3 | Pending |

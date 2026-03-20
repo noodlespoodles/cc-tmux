@@ -34,17 +34,17 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Workspace
 
-- [ ] **WRK-01**: tmux workspace creates project tabs from configured project list on startup
+- [x] **WRK-01**: tmux workspace creates project tabs from configured project list on startup
 - [ ] **WRK-02**: User can add/remove/list projects via CLI commands without editing scripts
-- [ ] **WRK-03**: Workspace sessions persist — closing terminal window doesn't kill sessions
-- [ ] **WRK-04**: Attaching from any terminal (PC or phone) reconnects to existing workspace seamlessly
-- [ ] **WRK-05**: tmux config includes mouse support, clickable tabs, sensible keybindings
+- [x] **WRK-03**: Workspace sessions persist — closing terminal window doesn't kill sessions
+- [x] **WRK-04**: Attaching from any terminal (PC or phone) reconnects to existing workspace seamlessly
+- [x] **WRK-05**: tmux config includes mouse support, clickable tabs, sensible keybindings
 
 ### Mobile
 
-- [ ] **MOB-01**: tmux auto-detects mobile device (narrow terminal) and switches to mobile-optimized layout
-- [ ] **MOB-02**: Mobile mode has larger tap targets, minimal status bar, essential info only
-- [ ] **MOB-03**: User can manually toggle mobile/desktop mode via keybinding
+- [x] **MOB-01**: tmux auto-detects mobile device (narrow terminal) and switches to mobile-optimized layout
+- [x] **MOB-02**: Mobile mode has larger tap targets, minimal status bar, essential info only
+- [x] **MOB-03**: User can manually toggle mobile/desktop mode via keybinding
 - [ ] **MOB-04**: QR code displayed at startup for easy phone SSH connection setup
 
 ### Robustness
@@ -111,14 +111,14 @@ Deferred to future release. Tracked but not in current roadmap.
 | TUN-02 | Phase 3 | Complete |
 | TUN-03 | Phase 3 | Complete |
 | TUN-04 | Phase 3 | Complete |
-| WRK-01 | Phase 4 | Pending |
+| WRK-01 | Phase 4 | Complete |
 | WRK-02 | Phase 4 | Pending |
-| WRK-03 | Phase 4 | Pending |
-| WRK-04 | Phase 4 | Pending |
-| WRK-05 | Phase 4 | Pending |
-| MOB-01 | Phase 4 | Pending |
-| MOB-02 | Phase 4 | Pending |
-| MOB-03 | Phase 4 | Pending |
+| WRK-03 | Phase 4 | Complete |
+| WRK-04 | Phase 4 | Complete |
+| WRK-05 | Phase 4 | Complete |
+| MOB-01 | Phase 4 | Complete |
+| MOB-02 | Phase 4 | Complete |
+| MOB-03 | Phase 4 | Complete |
 | MOB-04 | Phase 6 | Pending |
 | ROB-01 | Phase 5 | Pending |
 | ROB-02 | Phase 5 | Pending |

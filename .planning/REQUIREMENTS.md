@@ -15,7 +15,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **INST-04**: Installer provides clear progress indicators and error messages at each step
 - [x] **INST-05**: Installer interactively asks user for project folders (guided setup, not config file editing)
 - [x] **INST-06**: Installer handles ngrok auth token setup with clear instructions
-- [ ] **INST-07**: User can uninstall cleanly with a single command that reverses all changes
+- [x] **INST-07**: User can uninstall cleanly with a single command that reverses all changes
 - [ ] **INST-08**: Installer creates Windows desktop shortcut automatically (no manual PowerShell step)
 
 ### Security
@@ -53,7 +53,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **ROB-02**: Scripts handle edge cases gracefully (missing dependencies, network failures, WSL quirks)
 - [x] **ROB-03**: Health check command (`cc-tmux doctor`) diagnoses common issues with pass/fail per component
 - [x] **ROB-04**: `.gitattributes` ensures LF line endings — cloning on Windows doesn't break scripts
-- [ ] **ROB-05**: Self-update mechanism checks for new versions and applies updates via `cc-tmux update`
+- [x] **ROB-05**: Self-update mechanism checks for new versions and applies updates via `cc-tmux update`
 
 ### Documentation
 
@@ -101,7 +101,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | INST-04 | Phase 1 | Complete |
 | INST-05 | Phase 1 | Complete |
 | INST-06 | Phase 1 | Complete |
-| INST-07 | Phase 5 | Pending |
+| INST-07 | Phase 5 | Complete |
 | INST-08 | Phase 6 | Pending |
 | SEC-01 | Phase 2 | Complete |
 | SEC-02 | Phase 2 | Complete |
@@ -124,7 +124,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | ROB-02 | Phase 5 | Complete |
 | ROB-03 | Phase 5 | Complete |
 | ROB-04 | Phase 1 | Complete |
-| ROB-05 | Phase 5 | Pending |
+| ROB-05 | Phase 5 | Complete |
 | DOC-01 | Phase 6 | Pending |
 | DOC-02 | Phase 6 | Pending |
 | DOC-03 | Phase 6 | Pending |

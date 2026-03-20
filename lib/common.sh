@@ -39,6 +39,10 @@ log_ok() {
 
 log_error() {
     echo "  ${RED}[error]${RESET} $*" >&2
+    # Also append to error.log with timestamp (guard: dir must exist)
+    if [[ -d "$HOME/.cc-tmux" ]]; then
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$HOME/.cc-tmux/error.log"
+    fi
 }
 
 log_warn() {
@@ -150,6 +154,46 @@ check_internet() {
         return 1
     fi
 }
+
+# ------------------------------------------
+# Error log truncation
+# ------------------------------------------
+
+truncate_error_log() {
+    local log_file="$HOME/.cc-tmux/error.log"
+    if [[ -f "$log_file" ]]; then
+        local line_count
+        line_count=$(wc -l < "$log_file" 2>/dev/null) || return 0
+        if [[ "$line_count" -gt 5000 ]]; then
+            tail -n 1000 "$log_file" > "${log_file}.tmp"
+            mv "${log_file}.tmp" "$log_file"
+        fi
+    fi
+}
+
+# ------------------------------------------
+# Bashrc block removal (counterpart to add)
+# ------------------------------------------
+
+remove_bashrc_block() {
+    local name="$1"
+    local bashrc="$HOME/.bashrc"
+    local start_marker="# CC-TMUX:${name}:START"
+
+    if grep -qF "$start_marker" "$bashrc" 2>/dev/null; then
+        sed -i "/# CC-TMUX:${name}:START/,/# CC-TMUX:${name}:END/d" "$bashrc"
+        log_ok "bashrc block '$name' removed"
+    else
+        log_warn "bashrc block '$name' not found (already removed?)"
+    fi
+}
+
+# ------------------------------------------
+# Doctor output helpers
+# ------------------------------------------
+
+log_check_pass() { echo "  ${GREEN}[pass]${RESET} $*"; }
+log_check_fail() { echo "  ${RED}[FAIL]${RESET} $*"; }
 
 # ------------------------------------------
 # Initialize colors on source

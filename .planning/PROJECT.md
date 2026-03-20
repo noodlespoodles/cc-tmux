@@ -12,12 +12,14 @@ Non-technical users can install this in minutes and seamlessly access their Clau
 
 ### Validated
 
-(None yet — ship to validate)
+- One-command installer that handles all dependencies — Validated in Phase 1
+- Automatic Windows username detection — Validated in Phase 1
+- Idempotent installer (re-run safe) — Validated in Phase 1
+- Interactive project folder setup — Validated in Phase 1
+- ngrok auth token guided setup — Validated in Phase 1
+- LF line endings enforced via .gitattributes — Validated in Phase 1
 
 ### Active
-
-- [ ] One-command installer that handles all dependencies (tmux, SSH, ngrok) with clear progress and error recovery
-- [ ] Automatic Windows username detection — no manual placeholder replacement
 - [ ] Robust SSH configuration with proper security defaults (key-based auth, fail2ban or equivalent)
 - [ ] ngrok tunnel with automatic reconnection and persistent endpoint when possible
 - [ ] tmux configuration with mobile-optimized mode that auto-detects device type
@@ -74,4 +76,4 @@ The target audience is people who use Claude Code daily but aren't sysadmins. Th
 | Interactive installer over config file | Non-technical users prefer guided setup over editing YAML | — Pending |
 
 ---
-*Last updated: 2026-03-20 after initialization*
+*Last updated: 2026-03-20 after Phase 1 completion*

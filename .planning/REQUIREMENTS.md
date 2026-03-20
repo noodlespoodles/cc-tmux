@@ -49,9 +49,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Robustness
 
-- [ ] **ROB-01**: All scripts validate inputs and provide clear error messages for invalid paths/values
-- [ ] **ROB-02**: Scripts handle edge cases gracefully (missing dependencies, network failures, WSL quirks)
-- [ ] **ROB-03**: Health check command (`cc-tmux doctor`) diagnoses common issues with pass/fail per component
+- [x] **ROB-01**: All scripts validate inputs and provide clear error messages for invalid paths/values
+- [x] **ROB-02**: Scripts handle edge cases gracefully (missing dependencies, network failures, WSL quirks)
+- [x] **ROB-03**: Health check command (`cc-tmux doctor`) diagnoses common issues with pass/fail per component
 - [x] **ROB-04**: `.gitattributes` ensures LF line endings — cloning on Windows doesn't break scripts
 - [ ] **ROB-05**: Self-update mechanism checks for new versions and applies updates via `cc-tmux update`
 
@@ -120,9 +120,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | MOB-02 | Phase 4 | Complete |
 | MOB-03 | Phase 4 | Complete |
 | MOB-04 | Phase 6 | Pending |
-| ROB-01 | Phase 5 | Pending |
-| ROB-02 | Phase 5 | Pending |
-| ROB-03 | Phase 5 | Pending |
+| ROB-01 | Phase 5 | Complete |
+| ROB-02 | Phase 5 | Complete |
+| ROB-03 | Phase 5 | Complete |
 | ROB-04 | Phase 1 | Complete |
 | ROB-05 | Phase 5 | Pending |
 | DOC-01 | Phase 6 | Pending |

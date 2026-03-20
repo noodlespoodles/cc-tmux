@@ -1,0 +1,150 @@
+#!/usr/bin/env bash
+# ============================================
+# bin/cc-tmux -- CLI entry point for cc-tmux
+#
+# Subcommand router for workspace management.
+# Installed to ~/.cc-tmux/bin/cc-tmux with
+# PATH export in .bashrc.
+#
+# Usage: cc-tmux <command>
+# ============================================
+
+set -euo pipefail
+
+CC_TMUX_DIR="$HOME/.cc-tmux"
+
+# ------------------------------------------
+# Source core libraries
+# ------------------------------------------
+
+if [[ ! -d "$CC_TMUX_DIR/lib" ]]; then
+    echo "cc-tmux not installed. Run install.sh first."
+    exit 1
+fi
+
+source "$CC_TMUX_DIR/lib/common.sh"
+source "$CC_TMUX_DIR/lib/config.sh"
+
+# ------------------------------------------
+# Usage
+# ------------------------------------------
+
+show_usage() {
+    echo "Usage: cc-tmux <command>"
+    echo ""
+    echo "Commands:"
+    echo "  start              Start workspace (SSH + tunnel + tmux)"
+    echo "  stop               Stop workspace (kill session + tunnel)"
+    echo "  project add        Add a project tab"
+    echo "  project remove     Remove a project tab"
+    echo "  project list       List configured projects"
+    echo "  tunnel             Show tunnel status"
+    echo "  help               Show this help message"
+    echo ""
+}
+
+# ------------------------------------------
+# Subcommand routing
+# ------------------------------------------
+
+case "${1:-}" in
+    start)
+        exec bash "$HOME/startup.sh"
+        ;;
+
+    stop)
+        local_session_name=$(get_config "SESSION_NAME" 2>/dev/null) || local_session_name="work"
+
+        # Stop tunnel (ignore errors)
+        source "$CC_TMUX_DIR/lib/tunnel/provider.sh"
+        if load_tunnel_provider 2>/dev/null; then
+            tunnel_stop 2>/dev/null || true
+        fi
+
+        # Kill tmux session (ignore errors)
+        tmux kill-session -t "$local_session_name" 2>/dev/null || true
+
+        log_ok "Workspace stopped"
+        ;;
+
+    project)
+        source "$CC_TMUX_DIR/lib/workspace.sh"
+        shift
+        case "${1:-}" in
+            add)
+                shift
+                # Validate arguments
+                if [[ -z "${1:-}" ]] || [[ -z "${2:-}" ]]; then
+                    log_error "Usage: cc-tmux project add <name> <path>"
+                    exit 1
+                fi
+
+                local_name="$1"
+                local_path="$2"
+
+                # Validate path is absolute
+                if [[ "$local_path" != /* ]]; then
+                    log_error "Path must be absolute (start with /): $local_path"
+                    exit 1
+                fi
+
+                # Add to config
+                add_project "$local_name" "$local_path"
+
+                # Create live tmux window if session is active
+                local_session_name=$(get_config "SESSION_NAME" 2>/dev/null) || local_session_name="work"
+                if tmux has-session -t "$local_session_name" 2>/dev/null; then
+                    tmux new-window -t "$local_session_name" -n "$local_name" -c "$local_path"
+                    tmux send-keys -t "$local_session_name:$local_name" "powershell.exe" Enter
+                    log_ok "Window '$local_name' created in active session"
+                fi
+                ;;
+
+            remove)
+                shift
+                # Validate argument
+                if [[ -z "${1:-}" ]]; then
+                    log_error "Usage: cc-tmux project remove <name>"
+                    exit 1
+                fi
+
+                local_name="$1"
+
+                # Remove from config
+                remove_project "$local_name"
+
+                # Kill live tmux window if session is active
+                local_session_name=$(get_config "SESSION_NAME" 2>/dev/null) || local_session_name="work"
+                if tmux has-session -t "$local_session_name" 2>/dev/null; then
+                    if tmux list-windows -t "$local_session_name" -F '#{window_name}' | grep -qx "$local_name"; then
+                        tmux kill-window -t "$local_session_name:$local_name"
+                        log_ok "Window '$local_name' removed from active session"
+                    fi
+                fi
+                ;;
+
+            list)
+                list_projects
+                ;;
+
+            *)
+                echo "Usage: cc-tmux project {add|remove|list}"
+                exit 1
+                ;;
+        esac
+        ;;
+
+    tunnel)
+        source "$CC_TMUX_DIR/lib/tunnel/provider.sh"
+        load_tunnel_provider && tunnel_status
+        ;;
+
+    help|--help|-h)
+        show_usage
+        ;;
+
+    *)
+        show_usage
+        exit 1
+        ;;
+esac

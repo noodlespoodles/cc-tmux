@@ -10,9 +10,9 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Installation
 
 - [ ] **INST-01**: User can install everything with a single command (`bash install.sh`) that handles all dependencies
-- [ ] **INST-02**: Installer auto-detects Windows username without manual placeholder replacement
-- [ ] **INST-03**: Installer is idempotent — re-running it doesn't break or duplicate anything
-- [ ] **INST-04**: Installer provides clear progress indicators and error messages at each step
+- [x] **INST-02**: Installer auto-detects Windows username without manual placeholder replacement
+- [x] **INST-03**: Installer is idempotent — re-running it doesn't break or duplicate anything
+- [x] **INST-04**: Installer provides clear progress indicators and error messages at each step
 - [ ] **INST-05**: Installer interactively asks user for project folders (guided setup, not config file editing)
 - [ ] **INST-06**: Installer handles ngrok auth token setup with clear instructions
 - [ ] **INST-07**: User can uninstall cleanly with a single command that reverses all changes
@@ -52,7 +52,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **ROB-01**: All scripts validate inputs and provide clear error messages for invalid paths/values
 - [ ] **ROB-02**: Scripts handle edge cases gracefully (missing dependencies, network failures, WSL quirks)
 - [ ] **ROB-03**: Health check command (`cc-tmux doctor`) diagnoses common issues with pass/fail per component
-- [ ] **ROB-04**: `.gitattributes` ensures LF line endings — cloning on Windows doesn't break scripts
+- [x] **ROB-04**: `.gitattributes` ensures LF line endings — cloning on Windows doesn't break scripts
 - [ ] **ROB-05**: Self-update mechanism checks for new versions and applies updates via `cc-tmux update`
 
 ### Documentation
@@ -96,9 +96,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | INST-01 | Phase 1 | Pending |
-| INST-02 | Phase 1 | Pending |
-| INST-03 | Phase 1 | Pending |
-| INST-04 | Phase 1 | Pending |
+| INST-02 | Phase 1 | Complete |
+| INST-03 | Phase 1 | Complete |
+| INST-04 | Phase 1 | Complete |
 | INST-05 | Phase 1 | Pending |
 | INST-06 | Phase 1 | Pending |
 | INST-07 | Phase 5 | Pending |
@@ -123,7 +123,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | ROB-01 | Phase 5 | Pending |
 | ROB-02 | Phase 5 | Pending |
 | ROB-03 | Phase 5 | Pending |
-| ROB-04 | Phase 1 | Pending |
+| ROB-04 | Phase 1 | Complete |
 | ROB-05 | Phase 5 | Pending |
 | DOC-01 | Phase 6 | Pending |
 | DOC-02 | Phase 6 | Pending |

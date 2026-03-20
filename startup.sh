@@ -24,6 +24,7 @@ fi
 source "$CC_TMUX_DIR/lib/common.sh"
 source "$CC_TMUX_DIR/lib/config.sh"
 source "$CC_TMUX_DIR/lib/tunnel/provider.sh"
+source "$CC_TMUX_DIR/lib/workspace.sh"
 
 # ------------------------------------------
 # Main
@@ -67,19 +68,14 @@ main() {
     fi
 
     # ------------------------------------------
-    # 3. tmux session management
+    # 3. Workspace session (creates project tabs from config)
     # ------------------------------------------
 
     local SESSION_NAME
     SESSION_NAME=$(get_config "SESSION_NAME" 2>/dev/null) || SESSION_NAME="work"
 
-    if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-        log_ok "Attaching to existing session: $SESSION_NAME"
-    else
-        tmux new-session -d -s "$SESSION_NAME"
-        log_ok "Created new session: $SESSION_NAME"
-        # Phase 4 will add project tab creation here
-    fi
+    workspace_init
+    log_ok "Workspace ready"
 
     # ------------------------------------------
     # 4. Display connection info before attaching

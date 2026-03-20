@@ -86,6 +86,34 @@ step_configure() {
 }
 
 # ------------------------------------------
+# Deploy tmux.conf from template
+# ------------------------------------------
+
+deploy_tmux_conf() {
+    local win_username
+    win_username=$(get_config "WIN_USERNAME")
+
+    cp "$CC_TMUX_DIR/templates/tmux.conf.tpl" "$HOME/.tmux.conf"
+    sed -i "s|__USERNAME__|$win_username|g" "$HOME/.tmux.conf"
+    chmod 644 "$HOME/.tmux.conf"
+    log_ok "tmux.conf deployed with username: $win_username"
+}
+
+# ------------------------------------------
+# Deploy cc-tmux CLI to bin/
+# ------------------------------------------
+
+deploy_bin() {
+    local repo_dir
+    repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+    mkdir -p "$CC_TMUX_DIR/bin"
+    cp "$repo_dir/bin/cc-tmux" "$CC_TMUX_DIR/bin/cc-tmux"
+    chmod 755 "$CC_TMUX_DIR/bin/cc-tmux"
+    log_ok "cc-tmux CLI deployed to $CC_TMUX_DIR/bin/"
+}
+
+# ------------------------------------------
 # Step: Deploy runtime files
 # ------------------------------------------
 
@@ -125,6 +153,15 @@ step_deploy() {
         fi
     done
     log_ok "Template files deployed to $CC_TMUX_DIR/templates/"
+
+    # Make mobile-check.sh executable (called by tmux run-shell)
+    chmod 755 "$CC_TMUX_DIR/templates/mobile-check.sh"
+
+    # Deploy tmux.conf from template (substitutes __USERNAME__)
+    deploy_tmux_conf
+
+    # Deploy cc-tmux CLI
+    deploy_bin
 }
 
 # ------------------------------------------
@@ -243,6 +280,33 @@ step_verify() {
         ((pass++))
     else
         echo "  ${RED}[fail]${RESET} ngrok tunnel provider not deployed"
+        ((fail++))
+    fi
+
+    # Check tmux.conf deployed
+    if [[ -f "$HOME/.tmux.conf" ]]; then
+        echo "  ${GREEN}[pass]${RESET} tmux.conf deployed"
+        ((pass++))
+    else
+        echo "  ${RED}[fail]${RESET} tmux.conf not found"
+        ((fail++))
+    fi
+
+    # Check cc-tmux CLI deployed
+    if [[ -x "$CC_TMUX_DIR/bin/cc-tmux" ]]; then
+        echo "  ${GREEN}[pass]${RESET} cc-tmux CLI deployed"
+        ((pass++))
+    else
+        echo "  ${RED}[fail]${RESET} cc-tmux CLI not found"
+        ((fail++))
+    fi
+
+    # Check workspace module deployed
+    if [[ -f "$CC_TMUX_DIR/lib/workspace.sh" ]]; then
+        echo "  ${GREEN}[pass]${RESET} workspace module deployed"
+        ((pass++))
+    else
+        echo "  ${RED}[fail]${RESET} workspace module not found"
         ((fail++))
     fi
 

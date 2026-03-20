@@ -32,6 +32,7 @@ source "$SCRIPT_DIR/lib/deps.sh"
 source "$SCRIPT_DIR/lib/setup.sh"
 source "$SCRIPT_DIR/lib/ssh-hardening.sh"
 source "$SCRIPT_DIR/lib/tunnel/provider.sh"
+source "$SCRIPT_DIR/lib/workspace.sh"
 
 # ------------------------------------------
 # Argument parsing
@@ -259,7 +260,7 @@ print_summary() {
     echo "  Next steps:"
     echo ""
     echo "  1. Start your workspace:"
-    echo "     bash ~/startup.sh"
+    echo "     cc-tmux start"
     echo ""
     echo "  2. Set up Termius on your phone:"
     echo "     Hostname and port will be shown at startup"
@@ -274,23 +275,25 @@ print_summary() {
 # ------------------------------------------
 
 main() {
-    TOTAL_STEPS=9
+    TOTAL_STEPS=10
     export TOTAL_STEPS
 
     print_banner
 
-    step_preflight          # [1/9]
-    step_install_deps       # [2/9]
-    step_install_ngrok      # [3/9]
-    step_detect_environment # [4/9]
-    step_configure          # [5/9]
-    step_setup_system       # [6/9]
+    step_preflight          # [1/10]
+    step_install_deps       # [2/10]
+    step_install_ngrok      # [3/10]
+    step_detect_environment # [4/10]
+    step_configure          # [5/10]
+    step_setup_system       # [6/10]
     log_step 7 "Hardening SSH security..."
-    step_harden_ssh         # [7/9]
-    step_deploy             # [8/9]
+    step_harden_ssh         # [7/10]
+    step_deploy             # [8/10]
     log_step 9 "Deploying startup script..."
     deploy_file "$SCRIPT_DIR/startup.sh" "$HOME/startup.sh" 755
     log_ok "startup.sh deployed to ~/startup.sh"
+    log_step 10 "Configuring PATH..."
+    add_bashrc_block "path" 'export PATH="$HOME/.cc-tmux/bin:$PATH"'
     step_verify             # Final verification
 
     print_summary

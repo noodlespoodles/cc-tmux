@@ -8,13 +8,16 @@ if [ -z "$SSH_CONNECTION" ] || [ -n "$TMUX" ]; then
     return 0 2>/dev/null || exit 0
 fi
 
-SESSION_NAME="work"
+# Source libraries for workspace management
+source "$HOME/.cc-tmux/lib/common.sh"
+source "$HOME/.cc-tmux/lib/config.sh"
+source "$HOME/.cc-tmux/lib/workspace.sh"
 
-if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-    exec tmux attach -t "$SESSION_NAME"
-else
-    # Workspace init will be added in Phase 4
-    # For now, create a basic session
-    tmux new-session -d -s "$SESSION_NAME"
-    exec tmux attach -t "$SESSION_NAME"
-fi
+# Read session name from config
+SESSION_NAME=$(get_config "SESSION_NAME" 2>/dev/null) || SESSION_NAME="work"
+
+# Ensure workspace session exists (creates project tabs if new)
+workspace_init
+
+# Attach to session (replaces current shell)
+exec tmux attach -t "$SESSION_NAME"

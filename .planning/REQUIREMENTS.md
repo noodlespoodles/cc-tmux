@@ -57,9 +57,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Documentation
 
-- [ ] **DOC-01**: README provides complete setup guide written for non-technical users
-- [ ] **DOC-02**: README includes quick reference card for daily usage
-- [ ] **DOC-03**: Troubleshooting section covers common failure modes with solutions
+- [x] **DOC-01**: README provides complete setup guide written for non-technical users
+- [x] **DOC-02**: README includes quick reference card for daily usage
+- [x] **DOC-03**: Troubleshooting section covers common failure modes with solutions
 
 ## v2 Requirements
 
@@ -125,9 +125,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | ROB-03 | Phase 5 | Complete |
 | ROB-04 | Phase 1 | Complete |
 | ROB-05 | Phase 5 | Complete |
-| DOC-01 | Phase 6 | Pending |
-| DOC-02 | Phase 6 | Pending |
-| DOC-03 | Phase 6 | Pending |
+| DOC-01 | Phase 6 | Complete |
+| DOC-02 | Phase 6 | Complete |
+| DOC-03 | Phase 6 | Complete |
 
 **Coverage:**
 - v1 requirements: 33 total

@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Phase 6 context gathered
-last_updated: "2026-03-20T17:00:57.222Z"
+stopped_at: Completed 06-02-PLAN.md
+last_updated: "2026-03-20T17:18:45.131Z"
 progress:
   total_phases: 6
-  completed_phases: 5
-  total_plans: 10
-  completed_plans: 10
+  completed_phases: 6
+  total_plans: 12
+  completed_plans: 12
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-20)
 
 **Core value:** Non-technical users can install this in minutes and seamlessly access their Claude Code sessions from PC and phone without understanding WSL, SSH, or tmux internals.
-**Current focus:** Phase 05 — robustness-lifecycle
+**Current focus:** Phase 06 — user-experience-documentation
 
 ## Current Position
 
-Phase: 05 (robustness-lifecycle) — COMPLETE
-Plan: 2 of 2 (all complete)
+Phase: 06 (user-experience-documentation) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -54,6 +54,8 @@ Plan: 2 of 2 (all complete)
 | Phase 04 P02 | 3min | 2 tasks | 5 files |
 | Phase 05 P01 | 2min | 2 tasks | 2 files |
 | Phase 05 P02 | 2min | 2 tasks | 3 files |
+| Phase 06 P02 | 2min | 1 tasks | 1 files |
+| Phase 06 P01 | 2min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -99,6 +101,10 @@ Recent decisions affecting current work:
 - [Phase 05]: check_ngrok treats missing auth token as pass (binary present) with advisory hint
 - [Phase 05]: Update sources step_deploy from repo directory, not ~/.cc-tmux/, to pick up newly pulled files
 - [Phase 05]: File-existence guard pattern: check file exists before sourcing optional library modules
+- [Phase 06-02]: No badges, no Contributing, no CHANGELOG -- clean README for non-technical users
+- [Phase 06-02]: ASCII diagram uses +-- tree style for WSL terminal compatibility
+- [Phase 06-02]: Phone Setup as standalone section keeps 3-step setup promise clean
+- [Phase 06-02]: Files Reference uses flat 18-entry table rather than directory tree for scannability
 
 ### Pending Todos
 
@@ -112,6 +118,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T17:00:57.220Z
-Stopped at: Phase 6 context gathered
-Resume file: .planning/phases/06-user-experience-documentation/06-CONTEXT.md
+Last session: 2026-03-20T17:18:22.270Z
+Stopped at: Completed 06-02-PLAN.md
+Resume file: None

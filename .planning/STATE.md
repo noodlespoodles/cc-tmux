@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-20T15:44:01.097Z"
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-03-20T15:48:14.877Z"
 progress:
   total_phases: 6
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-20)
 
 **Core value:** Non-technical users can install this in minutes and seamlessly access their Claude Code sessions from PC and phone without understanding WSL, SSH, or tmux internals.
-**Current focus:** Phase 03 — tunnel-layer
+**Current focus:** Phase 04 — workspace-session
 
 ## Current Position
 
-Phase: 03 (tunnel-layer) — EXECUTING
-Plan: 2 of 2
+Phase: 04 (workspace-session) — PENDING
+Plan: 1 of ?
 
 ## Performance Metrics
 
@@ -49,6 +49,7 @@ Plan: 2 of 2
 *Updated after each plan completion*
 | Phase 02-ssh-security P02 | 2min | 2 tasks | 2 files |
 | Phase 03 P01 | 2min | 2 tasks | 2 files |
+| Phase 03 P02 | 2min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,10 @@ Recent decisions affecting current work:
 - [Phase 02-02]: Verification expanded to 10 checks (7 Phase 1 + 3 Phase 2 SSH security checks)
 - [Phase 03-01]: Watchdog inlines address persistence in nohup subshell -- parent functions inaccessible
 - [Phase 03-01]: ASCII dash separators in status output for WSL2 terminal compatibility
+- [Phase 03-02]: startup.sh wraps logic in main() function matching install.sh pattern for local variable support
+- [Phase 03-02]: Tunnel failure is non-blocking -- workspace launches in local-only mode with hints for manual recovery
+- [Phase 03-02]: tunnel_url guarded by both tunnel_available flag and declare -f check for defense in depth
+- [Phase 03-02]: startup.sh sources from deployed ~/.cc-tmux/ location, not repo -- matches production runtime
 
 ### Pending Todos
 
@@ -91,6 +96,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T15:44:01.093Z
-Stopped at: Completed 03-01-PLAN.md
+Last session: 2026-03-20T15:48:14.875Z
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None

@@ -77,11 +77,11 @@ Plans:
   3. Closing the terminal window does not kill tmux sessions -- reopening or SSHing in reattaches to the same workspace
   4. When a phone connects via SSH (narrow terminal), tmux automatically switches to a mobile-optimized layout with larger tap targets and minimal status bar
   5. User can manually toggle between mobile and desktop mode via a tmux keybinding
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
+- [ ] 04-01-PLAN.md -- Workspace module (lib/workspace.sh), tmux config template (templates/tmux.conf.tpl), and mobile auto-detection (templates/mobile-check.sh)
+- [ ] 04-02-PLAN.md -- CLI entry point (bin/cc-tmux), wire workspace into startup.sh, bashrc-hook.sh, and installer
 
 ### Phase 5: Robustness & Lifecycle
 **Goal**: All scripts handle errors gracefully, and the toolkit provides diagnostics, updates, and clean removal
@@ -124,6 +124,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Foundation & Installer | 2/2 | Complete | 2026-03-20 |
 | 2. SSH & Security | 1/2 | In Progress|  |
 | 3. Tunnel Layer | 0/2 | Not started | - |
-| 4. Workspace & Mobile | 0/? | Not started | - |
+| 4. Workspace & Mobile | 0/2 | Not started | - |
 | 5. Robustness & Lifecycle | 0/? | Not started | - |
 | 6. User Experience & Documentation | 0/? | Not started | - |

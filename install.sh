@@ -275,7 +275,7 @@ print_summary() {
 # ------------------------------------------
 
 main() {
-    TOTAL_STEPS=10
+    TOTAL_STEPS=11
     export TOTAL_STEPS
 
     print_banner
@@ -294,6 +294,8 @@ main() {
     log_ok "startup.sh deployed to ~/startup.sh"
     log_step 10 "Configuring PATH..."
     add_bashrc_block "path" 'export PATH="$HOME/.cc-tmux/bin:$PATH"'
+    log_step 11 "Creating desktop shortcut..."
+    create_desktop_shortcut
     step_verify             # Final verification
 
     print_summary

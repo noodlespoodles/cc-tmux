@@ -27,6 +27,27 @@ source "$CC_TMUX_DIR/lib/tunnel/provider.sh"
 source "$CC_TMUX_DIR/lib/workspace.sh"
 
 # ------------------------------------------
+# QR code display for phone onboarding
+# ------------------------------------------
+
+show_qr_code() {
+    local addr="$1"  # host:port format
+    local host="${addr%:*}"
+    local port="${addr##*:}"
+    local ssh_uri="ssh://$USER@$host:$port"
+
+    if command -v qrencode &>/dev/null; then
+        echo ""
+        echo "  Scan to connect from phone:"
+        echo ""
+        qrencode -t ANSIUTF8 -m 1 "$ssh_uri"
+        echo ""
+    else
+        echo "  (Install qrencode for a scannable QR code: sudo apt install qrencode)"
+    fi
+}
+
+# ------------------------------------------
 # Main
 # ------------------------------------------
 
@@ -94,6 +115,7 @@ main() {
         echo "    User: $USER"
         echo ""
         echo "  Or: ssh -p ${addr##*:} $USER@${addr%:*}"
+        show_qr_code "$addr"
     else
         echo "  Workspace is running (local only)"
         echo "  Tunnel not connected -- check: tunnel_status"

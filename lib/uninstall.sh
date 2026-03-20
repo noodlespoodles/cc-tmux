@@ -31,6 +31,7 @@ run_uninstall() {
     echo "    - /etc/fail2ban/jail.d/cc-tmux.conf"
     echo "    - ~/.tmux.conf"
     echo "    - ~/startup.sh"
+    echo "    - Claude Workspace desktop shortcut"
     echo ""
     echo "  System packages (tmux, ngrok, fail2ban, openssh-server) will NOT be removed."
     echo ""
@@ -77,6 +78,9 @@ run_uninstall() {
     sudo rm -f /etc/fail2ban/jail.d/cc-tmux.conf
     sudo service ssh restart 2>/dev/null || true
     sudo service fail2ban restart 2>/dev/null || true
+    if command -v powershell.exe &>/dev/null; then
+        powershell.exe -NoProfile -Command "Remove-Item \"\$env:USERPROFILE\\Desktop\\Claude Workspace.lnk\" -ErrorAction SilentlyContinue" 2>/dev/null
+    fi
     log_ok "System configs removed"
 
     # ------------------------------------------

@@ -16,7 +16,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **INST-05**: Installer interactively asks user for project folders (guided setup, not config file editing)
 - [x] **INST-06**: Installer handles ngrok auth token setup with clear instructions
 - [x] **INST-07**: User can uninstall cleanly with a single command that reverses all changes
-- [ ] **INST-08**: Installer creates Windows desktop shortcut automatically (no manual PowerShell step)
+- [x] **INST-08**: Installer creates Windows desktop shortcut automatically (no manual PowerShell step)
 
 ### Security
 
@@ -45,7 +45,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **MOB-01**: tmux auto-detects mobile device (narrow terminal) and switches to mobile-optimized layout
 - [x] **MOB-02**: Mobile mode has larger tap targets, minimal status bar, essential info only
 - [x] **MOB-03**: User can manually toggle mobile/desktop mode via keybinding
-- [ ] **MOB-04**: QR code displayed at startup for easy phone SSH connection setup
+- [x] **MOB-04**: QR code displayed at startup for easy phone SSH connection setup
 
 ### Robustness
 
@@ -102,7 +102,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | INST-05 | Phase 1 | Complete |
 | INST-06 | Phase 1 | Complete |
 | INST-07 | Phase 5 | Complete |
-| INST-08 | Phase 6 | Pending |
+| INST-08 | Phase 6 | Complete |
 | SEC-01 | Phase 2 | Complete |
 | SEC-02 | Phase 2 | Complete |
 | SEC-03 | Phase 2 | Complete |
@@ -119,7 +119,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | MOB-01 | Phase 4 | Complete |
 | MOB-02 | Phase 4 | Complete |
 | MOB-03 | Phase 4 | Complete |
-| MOB-04 | Phase 6 | Pending |
+| MOB-04 | Phase 6 | Complete |
 | ROB-01 | Phase 5 | Complete |
 | ROB-02 | Phase 5 | Complete |
 | ROB-03 | Phase 5 | Complete |

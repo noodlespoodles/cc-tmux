@@ -93,11 +93,11 @@ Plans:
   3. Running `cc-tmux doctor` produces a pass/fail checklist for each component (WSL, tmux, SSH, tunnel, config)
   4. Running `cc-tmux update` checks for new versions and applies updates from the repository
   5. Running `cc-tmux uninstall` cleanly reverses all changes made by the installer (configs, services, shortcuts)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md -- Error handling foundation (lib/common.sh enhancements) and doctor diagnostics (lib/doctor.sh)
+- [ ] 05-02-PLAN.md -- Self-update (lib/update.sh), clean uninstall (lib/uninstall.sh), and CLI wiring (bin/cc-tmux)
 
 ### Phase 6: User Experience & Documentation
 **Goal**: The toolkit is complete with Windows integration, easy phone onboarding, and documentation that a non-technical user can follow
@@ -125,5 +125,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. SSH & Security | 1/2 | In Progress|  |
 | 3. Tunnel Layer | 0/2 | Not started | - |
 | 4. Workspace & Mobile | 1/2 | In Progress|  |
-| 5. Robustness & Lifecycle | 0/? | Not started | - |
+| 5. Robustness & Lifecycle | 0/2 | Not started | - |
 | 6. User Experience & Documentation | 0/? | Not started | - |

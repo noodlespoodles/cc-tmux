@@ -25,6 +25,9 @@ fi
 source "$CC_TMUX_DIR/lib/common.sh"
 source "$CC_TMUX_DIR/lib/config.sh"
 
+# Truncate error log if oversized
+truncate_error_log
+
 # ------------------------------------------
 # Usage
 # ------------------------------------------
@@ -39,6 +42,10 @@ show_usage() {
     echo "  project remove     Remove a project tab"
     echo "  project list       List configured projects"
     echo "  tunnel             Show tunnel status"
+    echo "  doctor             Check installation health"
+    echo "  update             Check for and apply updates"
+    echo "  uninstall          Remove cc-tmux completely"
+    echo "  version            Show cc-tmux version"
     echo "  help               Show this help message"
     echo ""
 }
@@ -86,6 +93,12 @@ case "${1:-}" in
                 if [[ "$local_path" != /* ]]; then
                     log_error "Path must be absolute (start with /): $local_path"
                     exit 1
+                fi
+
+                # Validate path exists
+                if [[ ! -d "$local_path" ]]; then
+                    log_warn "Path does not exist: $local_path"
+                    log_hint "The path will be created when you use it, but make sure the spelling is correct."
                 fi
 
                 # Add to config
@@ -139,11 +152,48 @@ case "${1:-}" in
         load_tunnel_provider && tunnel_status
         ;;
 
+    doctor)
+        if [[ ! -f "$CC_TMUX_DIR/lib/doctor.sh" ]]; then
+            log_error "doctor module not found -- try reinstalling"
+            exit 1
+        fi
+        source "$CC_TMUX_DIR/lib/doctor.sh"
+        run_doctor
+        ;;
+
+    update)
+        if [[ ! -f "$CC_TMUX_DIR/lib/update.sh" ]]; then
+            log_error "update module not found -- try reinstalling"
+            exit 1
+        fi
+        source "$CC_TMUX_DIR/lib/update.sh"
+        run_update
+        ;;
+
+    uninstall)
+        if [[ ! -f "$CC_TMUX_DIR/lib/uninstall.sh" ]]; then
+            log_error "uninstall module not found -- try reinstalling"
+            exit 1
+        fi
+        source "$CC_TMUX_DIR/lib/uninstall.sh"
+        shift
+        run_uninstall "${1:-}"
+        ;;
+
+    version)
+        local_ver=$(get_config "CC_TMUX_VERSION" 2>/dev/null) || local_ver="unknown"
+        echo "cc-tmux $local_ver"
+        ;;
+
     help|--help|-h)
         show_usage
         ;;
 
     *)
+        if [[ -n "${1:-}" ]]; then
+            log_error "Unknown command: $1"
+            echo ""
+        fi
         show_usage
         exit 1
         ;;

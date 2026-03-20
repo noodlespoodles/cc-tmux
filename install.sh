@@ -31,6 +31,7 @@ source "$SCRIPT_DIR/lib/config.sh"
 source "$SCRIPT_DIR/lib/deps.sh"
 source "$SCRIPT_DIR/lib/setup.sh"
 source "$SCRIPT_DIR/lib/ssh-hardening.sh"
+source "$SCRIPT_DIR/lib/tunnel/provider.sh"
 
 # ------------------------------------------
 # Argument parsing
@@ -258,7 +259,7 @@ print_summary() {
     echo "  Next steps:"
     echo ""
     echo "  1. Start your workspace:"
-    echo "     ~/startup.sh (or cc-tmux start when CLI is ready in Phase 4)"
+    echo "     bash ~/startup.sh"
     echo ""
     echo "  2. Set up Termius on your phone:"
     echo "     Hostname and port will be shown at startup"
@@ -273,21 +274,24 @@ print_summary() {
 # ------------------------------------------
 
 main() {
-    TOTAL_STEPS=8
+    TOTAL_STEPS=9
     export TOTAL_STEPS
 
     print_banner
 
-    step_preflight          # [1/8]
-    step_install_deps       # [2/8]
-    step_install_ngrok      # [3/8]
-    step_detect_environment # [4/8]
-    step_configure          # [5/8]
-    step_setup_system       # [6/8]
+    step_preflight          # [1/9]
+    step_install_deps       # [2/9]
+    step_install_ngrok      # [3/9]
+    step_detect_environment # [4/9]
+    step_configure          # [5/9]
+    step_setup_system       # [6/9]
     log_step 7 "Hardening SSH security..."
-    step_harden_ssh         # [7/8]
-    step_deploy             # [8/8]
-    step_verify             # Final verification (unnumbered)
+    step_harden_ssh         # [7/9]
+    step_deploy             # [8/9]
+    log_step 9 "Deploying startup script..."
+    deploy_file "$SCRIPT_DIR/startup.sh" "$HOME/startup.sh" 755
+    log_ok "startup.sh deployed to ~/startup.sh"
+    step_verify             # Final verification
 
     print_summary
 }

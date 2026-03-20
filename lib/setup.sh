@@ -107,6 +107,17 @@ step_deploy() {
     done
     log_ok "Library files deployed to $CC_TMUX_DIR/lib/"
 
+    # Deploy lib/tunnel/ files (tunnel provider modules)
+    if [[ -d "$repo_dir/lib/tunnel" ]]; then
+        mkdir -p "$CC_TMUX_DIR/lib/tunnel"
+        for f in "$repo_dir"/lib/tunnel/*.sh; do
+            if [[ -f "$f" ]]; then
+                deploy_file "$f" "$CC_TMUX_DIR/lib/tunnel/$(basename "$f")" 644
+            fi
+        done
+        log_ok "Tunnel provider files deployed to $CC_TMUX_DIR/lib/tunnel/"
+    fi
+
     # Deploy templates/ files
     for f in "$repo_dir"/templates/*; do
         if [[ -f "$f" ]]; then
@@ -214,6 +225,24 @@ step_verify() {
         ((pass++))
     else
         echo "  ${RED}[fail]${RESET} fail2ban SSH jail not configured"
+        ((fail++))
+    fi
+
+    # Check tunnel provider deployed
+    if [[ -f "$CC_TMUX_DIR/lib/tunnel/provider.sh" ]]; then
+        echo "  ${GREEN}[pass]${RESET} Tunnel provider interface deployed"
+        ((pass++))
+    else
+        echo "  ${RED}[fail]${RESET} Tunnel provider interface not deployed"
+        ((fail++))
+    fi
+
+    # Check ngrok provider deployed
+    if [[ -f "$CC_TMUX_DIR/lib/tunnel/ngrok.sh" ]]; then
+        echo "  ${GREEN}[pass]${RESET} ngrok tunnel provider deployed"
+        ((pass++))
+    else
+        echo "  ${RED}[fail]${RESET} ngrok tunnel provider not deployed"
         ((fail++))
     fi
 

@@ -98,3 +98,127 @@ display_key_instructions() {
     echo ""
     echo "========================================"
 }
+
+# ------------------------------------------
+# Hardened sshd drop-in config
+# ------------------------------------------
+
+write_hardened_ssh_config() {
+    local current_user
+    current_user=$(whoami)
+    local conf="/etc/ssh/sshd_config.d/00-cc-tmux.conf"
+
+    # Remove old Phase 1 drop-in (different filename)
+    sudo rm -f /etc/ssh/sshd_config.d/cc-tmux.conf
+
+    # Write hardened config
+    sudo tee "$conf" > /dev/null <<EOF
+# Managed by cc-tmux installer -- Phase 2 hardened config
+# Do not edit manually; re-run installer to regenerate
+
+ListenAddress 0.0.0.0
+
+# Authentication -- key-only for remote connections
+PubkeyAuthentication yes
+PasswordAuthentication no
+PermitRootLogin no
+MaxAuthTries 3
+LoginGraceTime 30
+PermitEmptyPasswords no
+
+# Access control
+AllowUsers $current_user
+
+# Security hardening
+X11Forwarding no
+ClientAliveInterval 120
+ClientAliveCountMax 3
+
+# Localhost safety net -- password auth on loopback
+Match Address 127.0.0.1,::1
+    PasswordAuthentication yes
+EOF
+
+    # Validate config before restarting
+    if sudo sshd -t; then
+        log_ok "SSH config syntax valid"
+    else
+        log_error "SSH config syntax invalid -- rolling back"
+        # Rollback: restore minimal safe config
+        sudo tee "$conf" > /dev/null <<'ROLLBACK'
+# Managed by cc-tmux installer -- rollback safe config
+ListenAddress 0.0.0.0
+PasswordAuthentication yes
+PubkeyAuthentication yes
+ROLLBACK
+        return 1
+    fi
+
+    sudo service ssh restart
+    log_ok "SSH hardened: key-only auth (password on localhost only)"
+}
+
+# ------------------------------------------
+# fail2ban SSH jail configuration
+# ------------------------------------------
+
+configure_fail2ban() {
+    local jail_conf="/etc/fail2ban/jail.d/cc-tmux.conf"
+
+    # Auto-detect backend
+    local backend
+    if [[ -f /var/log/auth.log ]]; then
+        backend="auto"
+    elif systemctl is-active systemd-journald &>/dev/null; then
+        backend="systemd"
+    else
+        backend="auto"
+    fi
+
+    sudo tee "$jail_conf" > /dev/null <<EOF
+# Managed by cc-tmux installer
+[sshd]
+enabled = true
+port = ssh
+filter = sshd
+backend = $backend
+maxretry = 5
+bantime = 600
+findtime = 600
+EOF
+
+    sudo service fail2ban restart
+
+    if sudo fail2ban-client status sshd &>/dev/null; then
+        log_ok "fail2ban sshd jail active"
+    else
+        log_warn "fail2ban sshd jail not responding -- may need manual check"
+    fi
+}
+
+# ------------------------------------------
+# Orchestrator: full SSH hardening sequence
+# ------------------------------------------
+
+step_harden_ssh() {
+    generate_ssh_keys
+    install_public_key
+    display_key_instructions "$CC_TMUX_DIR/keys/cc-tmux_ed25519"
+
+    # Interactive confirmation before disabling password auth
+    if [[ "${NONINTERACTIVE:-false}" != "true" ]]; then
+        echo ""
+        echo "  ${YELLOW}[!]${RESET} Password authentication will be DISABLED for remote SSH."
+        echo "      Make sure you have copied the key above to your phone."
+        echo ""
+        read -rp "  Continue? (Y/n): " confirm
+        if [[ "$confirm" == "n" || "$confirm" == "N" ]]; then
+            log_warn "Skipped SSH hardening. Password auth remains enabled."
+            return 0
+        fi
+    fi
+
+    write_hardened_ssh_config
+    configure_fail2ban
+    log_ok "SSH security hardening complete"
+}

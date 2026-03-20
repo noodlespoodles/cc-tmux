@@ -35,7 +35,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Workspace
 
 - [x] **WRK-01**: tmux workspace creates project tabs from configured project list on startup
-- [ ] **WRK-02**: User can add/remove/list projects via CLI commands without editing scripts
+- [x] **WRK-02**: User can add/remove/list projects via CLI commands without editing scripts
 - [x] **WRK-03**: Workspace sessions persist — closing terminal window doesn't kill sessions
 - [x] **WRK-04**: Attaching from any terminal (PC or phone) reconnects to existing workspace seamlessly
 - [x] **WRK-05**: tmux config includes mouse support, clickable tabs, sensible keybindings
@@ -112,7 +112,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | TUN-03 | Phase 3 | Complete |
 | TUN-04 | Phase 3 | Complete |
 | WRK-01 | Phase 4 | Complete |
-| WRK-02 | Phase 4 | Pending |
+| WRK-02 | Phase 4 | Complete |
 | WRK-03 | Phase 4 | Complete |
 | WRK-04 | Phase 4 | Complete |
 | WRK-05 | Phase 4 | Complete |

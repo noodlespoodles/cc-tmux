@@ -109,10 +109,11 @@ Plans:
   3. README provides a complete setup guide from git clone to working phone access, written for users who don't know what WSL or SSH are
   4. README includes a quick reference card for daily commands (start, stop, add project, check tunnel, etc.)
   5. README has a troubleshooting section covering common failure modes with step-by-step solutions
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: TBD
+- [ ] 06-01-PLAN.md -- Desktop shortcut creation (lib/setup.sh), QR code display (startup.sh), qrencode dependency, and uninstall extension
+- [ ] 06-02-PLAN.md -- Comprehensive README.md with 10-section user guide for non-technical users
 
 ## Progress
 
@@ -126,4 +127,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Tunnel Layer | 0/2 | Not started | - |
 | 4. Workspace & Mobile | 1/2 | In Progress|  |
 | 5. Robustness & Lifecycle | 0/2 | Not started | - |
-| 6. User Experience & Documentation | 0/? | Not started | - |
+| 6. User Experience & Documentation | 0/2 | Not started | - |

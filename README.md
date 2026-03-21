@@ -51,7 +51,7 @@ yourname@PCNAME:~$
 This is your WSL terminal. Run these two commands:
 
 ```bash
-git clone https://github.com/Saschaeh/cc-tmux.git
+git clone https://github.com/noodlespoodles/cc-tmux.git
 cd cc-tmux
 ```
 
@@ -78,24 +78,27 @@ That's it. Three steps. The installer handles SSH, security, tunnel setup, tmux 
 
 ## Phone Setup
 
-During installation, an SSH private key was displayed on screen. You need to get this key into **Termius** on your phone so it can connect to your PC securely.
+During installation, the installer saved your SSH private key to your **Windows Desktop** as `cc-tmux-key.txt`. You need to get this file onto your phone and import it into Termius.
 
-1. **Get the key.** If you need to see it again, run this in your Ubuntu terminal:
+1. **Transfer the key to your phone.** Find `cc-tmux-key.txt` on your Desktop and send it to yourself -- email it, upload to Google Drive or OneDrive, or any method you prefer. Download it on your phone.
 
-   ```bash
-   cat ~/.cc-tmux/keys/cc-tmux_ed25519
-   ```
+2. **Import into Termius.** On your phone, open Termius and go to **Keychain** (the key icon). Tap **+**, then **Key**, then **Import from file**. Select the key file you transferred. Name it something like "cc-tmux" and save.
 
-2. **Copy the key text.** Select everything from `-----BEGIN OPENSSH PRIVATE KEY-----` through `-----END OPENSSH PRIVATE KEY-----` (including those lines).
-
-3. **Import into Termius.** On your phone, open Termius and go to **Keychain** (the key icon). Tap **+**, then **Key**. Paste the key text you copied. Save it.
-
-4. **Create a Host in Termius.** Tap **Hosts**, then **+** to add a new host:
-   - **Hostname** and **Port**: shown each time you start the workspace (or scan the QR code that appears on your PC screen)
+3. **Create a Host in Termius.** Tap **Hosts**, then **+** to add a new host:
+   - **Hostname**: `0.tcp.in.ngrok.io` (this stays the same)
+   - **Port**: shown each time you start the workspace (run `cc-tmux tunnel` on your PC to check)
    - **Username**: your WSL username (the one you created in Step 1)
    - **Key**: select the key you just imported
 
-5. **Note:** The hostname and port change each time you restart the workspace. When you start up, a QR code appears on your PC screen -- scan it with your phone camera and Termius will update the connection details automatically.
+4. **Delete the key file** from your Desktop and phone Downloads after importing. Private keys shouldn't be left lying around.
+
+**Note:** The port number changes each time the workspace restarts (ngrok free tier limitation). Run `cc-tmux tunnel` on your PC to see the current port, and update it in Termius.
+
+**If you can't find the key file**, run this in Ubuntu to regenerate it on your Desktop:
+
+```bash
+cp ~/.cc-tmux/keys/cc-tmux_ed25519 /mnt/c/Users/$(whoami)/Desktop/cc-tmux-key.txt
+```
 
 ---
 
@@ -109,7 +112,7 @@ Double-click **"Claude Workspace"** on your desktop. Or open an Ubuntu terminal 
 cc-tmux start
 ```
 
-It starts SSH, the tunnel, and drops you into your tabbed workspace. A QR code appears with the connection address for your phone.
+It starts SSH, the tunnel, and shows the connection address for your phone. Press Enter to launch the workspace.
 
 ### On your PC
 
@@ -120,7 +123,7 @@ It starts SSH, the tunnel, and drops you into your tabbed workspace. A QR code a
 
 ### On your phone
 
-- Open **Termius** and update the port if it changed (or scan the QR code on your PC screen)
+- Open **Termius** and update the port if it changed (run `cc-tmux tunnel` on your PC)
 - Tap to connect -- you land in your workspace automatically
 - Tap tabs at the bottom to switch between projects
 - Press **Ctrl+B**, then **Shift+M** for mobile mode (bigger tabs, easier to tap on a small screen)
@@ -229,13 +232,13 @@ Then run `cc-tmux start` to restart the workspace.
 
 ### "Permission denied" on SSH
 
-This usually means the SSH key isn't imported into Termius. See the **Phone Setup** section above. To display the key again:
+This means the SSH key isn't imported into Termius correctly. See the **Phone Setup** section above. To get the key file again:
 
 ```bash
-cat ~/.cc-tmux/keys/cc-tmux_ed25519
+cp ~/.cc-tmux/keys/cc-tmux_ed25519 /mnt/c/Users/$(whoami)/Desktop/cc-tmux-key.txt
 ```
 
-Copy the entire output (including the BEGIN and END lines) and import it into Termius under **Keychain** -> **+** -> **Key**.
+Transfer `cc-tmux-key.txt` to your phone and import it in Termius under **Keychain** -> **+** -> **Import from file**.
 
 ---
 

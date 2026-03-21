@@ -124,7 +124,16 @@ main() {
     echo ""
 
     # ------------------------------------------
-    # 5. Attach to tmux (exec replaces shell process)
+    # 5. Pause so user can see connection info / scan QR
+    # ------------------------------------------
+
+    if [[ "$tunnel_available" == true ]]; then
+        echo "  Press Enter to launch workspace..."
+        read -r
+    fi
+
+    # ------------------------------------------
+    # 6. Attach to tmux (exec replaces shell process)
     # ------------------------------------------
 
     exec tmux attach -t "$SESSION_NAME"

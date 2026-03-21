@@ -217,7 +217,7 @@ step_configure() {
         fi
 
         add_project "$name" "$path"
-        ((added++))
+        added=$((added + 1))
         echo ""
     done
 

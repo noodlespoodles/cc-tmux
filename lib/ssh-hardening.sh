@@ -64,6 +64,10 @@ install_public_key() {
 
 display_key_instructions() {
     local key_path="$1"
+    local win_home="${WIN_HOME:-/mnt/c/Users/$USER}"
+    local desktop_path="$win_home/Desktop"
+    local key_filename="cc-tmux-key.txt"
+    local saved_path=""
 
     echo ""
     echo "========================================"
@@ -75,11 +79,38 @@ display_key_instructions() {
     echo "  much more secure -- like a lock that"
     echo "  only your specific key can open."
     echo ""
-    echo "  Copy everything between the lines below:"
+
+    # Copy key file to Windows Desktop for easy transfer
+    if [[ -d "$desktop_path" ]]; then
+        cp "$key_path" "$desktop_path/$key_filename"
+        saved_path="$desktop_path/$key_filename"
+        log_ok "Key saved to your Desktop: $key_filename"
+    elif [[ -d "$win_home/Documents" ]]; then
+        cp "$key_path" "$win_home/Documents/$key_filename"
+        saved_path="$win_home/Documents/$key_filename"
+        log_ok "Key saved to your Documents: $key_filename"
+    else
+        # Fallback: just display the key
+        echo "  Could not find Desktop or Documents folder."
+        echo "  Key file is at: $key_path"
+        echo ""
+        cat "$key_path"
+        echo ""
+    fi
+
     echo ""
-    echo "  ---- BEGIN KEY (copy from here) ----"
-    cat "$key_path"
-    echo "  ---- END KEY (copy to here) ----"
+    echo "  HOW TO GET THE KEY TO YOUR PHONE:"
+    echo ""
+    if [[ -n "$saved_path" ]]; then
+        echo "  1. Find '$key_filename' on your Desktop"
+        echo "  2. Email it to yourself, or transfer via"
+        echo "     Google Drive / OneDrive / USB"
+        echo "  3. On your phone, download the file"
+    else
+        echo "  1. Copy the key from: $key_path"
+        echo "  2. Email it to yourself"
+        echo "  3. On your phone, download the file"
+    fi
     echo ""
     echo "  HOW TO IMPORT INTO TERMIUS (Android):"
     echo ""
@@ -87,8 +118,8 @@ display_key_instructions() {
     echo "  2. Tap Settings (gear icon)"
     echo "  3. Tap Keychain"
     echo "  4. Tap + (plus) to add a new key"
-    echo "  5. Tap 'Paste from clipboard'"
-    echo "  6. Paste the key you copied above"
+    echo "  5. Tap 'Import from file'"
+    echo "  6. Select the key file you transferred"
     echo "  7. Give it a name like 'cc-tmux'"
     echo "  8. Tap Save"
     echo ""
@@ -96,6 +127,12 @@ display_key_instructions() {
     echo "  in Termius, select this key instead of"
     echo "  using a password."
     echo ""
+    if [[ -n "$saved_path" ]]; then
+        echo "  ${YELLOW:-}[!]${RESET:-} DELETE the key file from your"
+        echo "      Desktop after importing it to your phone."
+        echo "      Private keys should not be left lying around."
+        echo ""
+    fi
     echo "========================================"
 }
 

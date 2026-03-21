@@ -47,7 +47,15 @@ bind -n MouseDown1StatusRight new-window -c "/mnt/c/Users/__USERNAME__/Documents
 set-hook -g client-attached 'run-shell "~/.cc-tmux/templates/mobile-check.sh"'
 
 # --- Mobile mode toggle (Ctrl+B, Shift+M) ---
-bind M set status-left "" \; set status-right "#[bg=#89b4fa,fg=#1e1e2e,bold] + " \; set status-right-length 5 \; setw window-status-format "#[bg=#45475a,fg=#cdd6f4]  #I: #W  " \; setw window-status-current-format "#[bg=#89b4fa,fg=#1e1e2e,bold]  #I: #W  " \; setw window-status-separator " " \; display-message "Mobile mode"
+# Fat tabs for easy tapping on phone screens
+bind M \
+    set status-left "" \; \
+    set status-right "#[bg=#89b4fa,fg=#1e1e2e,bold] + " \; \
+    set status-right-length 5 \; \
+    setw window-status-format "#[bg=#45475a,fg=#cdd6f4]    #I: #W    " \; \
+    setw window-status-current-format "#[bg=#89b4fa,fg=#1e1e2e,bold]    #I: #W    " \; \
+    setw window-status-separator " " \; \
+    display-message "Mobile mode"
 
 # --- Desktop mode toggle (Ctrl+B, Shift+N) ---
 bind N source-file ~/.tmux.conf \; display-message "Desktop mode"

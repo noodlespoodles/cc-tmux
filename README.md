@@ -68,7 +68,7 @@ The installer will:
 - Install all required software (tmux, SSH server, ngrok, and more)
 - Ask for your ngrok auth token (it tells you exactly where to find it)
 - Ask you to add your project folders (the directories where your code lives)
-- Set up SSH security with a private key (and display that key for your phone)
+- Set up SSH security with a private key (saved to your Desktop for easy transfer)
 - Create a **"Claude Workspace"** shortcut on your Windows desktop
 - Verify everything works
 
@@ -94,10 +94,10 @@ During installation, the installer saved your SSH private key to your **Windows 
 
 **Note:** The port number changes each time the workspace restarts (ngrok free tier limitation). Run `cc-tmux tunnel` on your PC to see the current port, and update it in Termius.
 
-**If you can't find the key file**, run this in Ubuntu to regenerate it on your Desktop:
+**If you can't find the key file**, run this in Ubuntu to put it back on your Desktop:
 
 ```bash
-cp ~/.cc-tmux/keys/cc-tmux_ed25519 /mnt/c/Users/$(whoami)/Desktop/cc-tmux-key.txt
+cp ~/.cc-tmux/keys/cc-tmux_ed25519 /mnt/c/Users/$(cmd.exe /C "echo %USERNAME%" 2>/dev/null | tr -d '\r')/Desktop/cc-tmux-key.txt
 ```
 
 ---
@@ -118,6 +118,7 @@ It starts SSH, the tunnel, and shows the connection address for your phone. Pres
 
 - **Click tabs** at the bottom to switch between projects
 - **Click the + button** at the bottom right to open a new tab
+- **Right-click any folder** in Windows Explorer and select **"Open in CC-TMUX"** to open it as a new tab (see [Context Menu](#windows-explorer-context-menu) below)
 - Type `claude` in any tab to start Claude Code
 - Just **close the window** when you're done -- everything keeps running in the background
 
@@ -127,6 +128,7 @@ It starts SSH, the tunnel, and shows the connection address for your phone. Pres
 - Tap to connect -- you land in your workspace automatically
 - Tap tabs at the bottom to switch between projects
 - Press **Ctrl+B**, then **Shift+M** for mobile mode (bigger tabs, easier to tap on a small screen)
+- Press **Ctrl+B**, then **Shift+N** to switch back to desktop mode
 - Close Termius when done -- everything keeps running
 
 ### When you leave
@@ -136,6 +138,28 @@ Just walk away. Everything stays running. Open Termius on your phone whenever yo
 ### When you get back
 
 Open the desktop shortcut or run `cc-tmux start` in Ubuntu. Everything is exactly where you left it.
+
+---
+
+## Windows Explorer Context Menu
+
+You can add a right-click option to Windows Explorer so that any folder can be opened as a new tab in your workspace.
+
+### Install it
+
+```bash
+cc-tmux context-menu
+```
+
+After this, right-click any folder in Windows Explorer and you'll see **"Open in CC-TMUX"**. It creates a new tmux tab pointed at that folder. Your workspace must be running first (`cc-tmux start`).
+
+### Remove it
+
+```bash
+cc-tmux remove-context-menu
+```
+
+This removes the right-click option from Windows Explorer. It's also removed automatically if you run `cc-tmux uninstall`.
 
 ---
 
@@ -155,6 +179,8 @@ Run these in your Ubuntu terminal.
 | `cc-tmux tunnel` | Show tunnel status and address |
 | `cc-tmux doctor` | Check installation health |
 | `cc-tmux update` | Check for and apply updates |
+| `cc-tmux context-menu` | Add right-click option to Windows Explorer |
+| `cc-tmux remove-context-menu` | Remove right-click option |
 | `cc-tmux uninstall` | Remove cc-tmux completely |
 | `cc-tmux version` | Show cc-tmux version |
 | `cc-tmux help` | Show help message |
@@ -235,10 +261,19 @@ Then run `cc-tmux start` to restart the workspace.
 This means the SSH key isn't imported into Termius correctly. See the **Phone Setup** section above. To get the key file again:
 
 ```bash
-cp ~/.cc-tmux/keys/cc-tmux_ed25519 /mnt/c/Users/$(whoami)/Desktop/cc-tmux-key.txt
+cp ~/.cc-tmux/keys/cc-tmux_ed25519 /mnt/c/Users/$(cmd.exe /C "echo %USERNAME%" 2>/dev/null | tr -d '\r')/Desktop/cc-tmux-key.txt
 ```
 
 Transfer `cc-tmux-key.txt` to your phone and import it in Termius under **Keychain** -> **+** -> **Import from file**.
+
+### "Open in CC-TMUX" doesn't work
+
+Make sure your workspace is running first (`cc-tmux start`). If it still doesn't work, reinstall the context menu:
+
+```bash
+cc-tmux remove-context-menu
+cc-tmux context-menu
+```
 
 ---
 
@@ -250,7 +285,7 @@ To remove cc-tmux completely, run:
 cc-tmux uninstall
 ```
 
-This removes all cc-tmux configuration files, bashrc hooks, the desktop shortcut, and the `~/.cc-tmux` directory. It does **not** remove system packages (tmux, openssh-server, ngrok, etc.) that other programs might use.
+This removes all cc-tmux configuration files, bashrc hooks, the desktop shortcut, the context menu, and the `~/.cc-tmux` directory. It does **not** remove system packages (tmux, openssh-server, ngrok, etc.) that other programs might use.
 
 If you also want to remove those packages:
 
@@ -275,10 +310,12 @@ sudo apt remove tmux openssh-server fail2ban qrencode ngrok
 | `~/.cc-tmux/bin/cc-tmux` | CLI entry point |
 | `~/.cc-tmux/templates/tmux.conf.tpl` | tmux config template |
 | `~/.cc-tmux/templates/mobile-check.sh` | Mobile auto-detection script |
+| `~/.cc-tmux/templates/open-in-cctmux.sh` | Context menu helper (WSL side) |
 | `~/.cc-tmux/templates/bashrc-hook.sh` | SSH auto-attach hook |
 | `~/.tmux.conf` | Deployed tmux configuration |
 | `~/startup.sh` | Workspace launcher |
 | `Claude Workspace.lnk` (Windows Desktop) | One-click launcher shortcut |
+| `C:\Users\X\.cc-tmux\open-in-cctmux.ps1` | Context menu launcher (Windows side) |
 | `/etc/ssh/sshd_config.d/00-cc-tmux.conf` | SSH hardening configuration |
 | `/etc/sudoers.d/cc-tmux` | Passwordless SSH service management |
 | `/etc/fail2ban/jail.d/cc-tmux.conf` | Brute-force protection rules |

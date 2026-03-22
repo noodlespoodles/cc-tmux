@@ -345,3 +345,72 @@ create_desktop_shortcut() {
         log_hint "Create manually: see README.md"
     fi
 }
+
+# ------------------------------------------
+# Windows Explorer context menu
+# ------------------------------------------
+
+install_context_menu() {
+    if ! command -v powershell.exe &>/dev/null; then
+        log_error "powershell.exe not found -- cannot install context menu"
+        return 1
+    fi
+
+    local script_path
+    script_path=$(get_config "CC_TMUX_REPO" 2>/dev/null) || script_path="$HOME/cc-tmux"
+
+    # Deploy the PowerShell helper to ~/.cc-tmux/
+    if [[ -f "$script_path/templates/open-in-cctmux.ps1" ]]; then
+        cp "$script_path/templates/open-in-cctmux.ps1" "$CC_TMUX_DIR/open-in-cctmux.ps1"
+    elif [[ -f "$CC_TMUX_DIR/templates/open-in-cctmux.ps1" ]]; then
+        cp "$CC_TMUX_DIR/templates/open-in-cctmux.ps1" "$CC_TMUX_DIR/open-in-cctmux.ps1"
+    else
+        log_error "open-in-cctmux.ps1 template not found"
+        return 1
+    fi
+
+    # Convert WSL path to Windows path for the registry
+    local win_script_path
+    win_script_path=$(wslpath -w "$CC_TMUX_DIR/open-in-cctmux.ps1")
+
+    # Add registry entries for folder context menu (right-click on folder)
+    # and directory background context menu (right-click in empty space)
+    powershell.exe -NoProfile -Command "
+        # Folder context menu (right-click ON a folder)
+        New-Item -Path 'HKCU:\\Software\\Classes\\Directory\\shell\\cc-tmux' -Force | Out-Null
+        Set-ItemProperty -Path 'HKCU:\\Software\\Classes\\Directory\\shell\\cc-tmux' -Name '(Default)' -Value 'Open in CC-TMUX'
+        Set-ItemProperty -Path 'HKCU:\\Software\\Classes\\Directory\\shell\\cc-tmux' -Name 'Icon' -Value 'C:\\Windows\\System32\\wsl.exe,0'
+        New-Item -Path 'HKCU:\\Software\\Classes\\Directory\\shell\\cc-tmux\\command' -Force | Out-Null
+        Set-ItemProperty -Path 'HKCU:\\Software\\Classes\\Directory\\shell\\cc-tmux\\command' -Name '(Default)' -Value 'powershell.exe -NoProfile -WindowStyle Hidden -File \"$win_script_path\" \"%V\"'
+
+        # Background context menu (right-click in empty space inside a folder)
+        New-Item -Path 'HKCU:\\Software\\Classes\\Directory\\Background\\shell\\cc-tmux' -Force | Out-Null
+        Set-ItemProperty -Path 'HKCU:\\Software\\Classes\\Directory\\Background\\shell\\cc-tmux' -Name '(Default)' -Value 'Open in CC-TMUX'
+        Set-ItemProperty -Path 'HKCU:\\Software\\Classes\\Directory\\Background\\shell\\cc-tmux' -Name 'Icon' -Value 'C:\\Windows\\System32\\wsl.exe,0'
+        New-Item -Path 'HKCU:\\Software\\Classes\\Directory\\Background\\shell\\cc-tmux\\command' -Force | Out-Null
+        Set-ItemProperty -Path 'HKCU:\\Software\\Classes\\Directory\\Background\\shell\\cc-tmux\\command' -Name '(Default)' -Value 'powershell.exe -NoProfile -WindowStyle Hidden -File \"$win_script_path\" \"%V\"'
+    " 2>/dev/null
+
+    if [[ $? -eq 0 ]]; then
+        log_ok "Context menu installed: 'Open in CC-TMUX'"
+        log_ok "Right-click any folder in Windows Explorer to use it"
+    else
+        log_error "Failed to install context menu"
+        return 1
+    fi
+}
+
+remove_context_menu() {
+    if ! command -v powershell.exe &>/dev/null; then
+        log_warn "powershell.exe not found -- skipping context menu removal"
+        return 0
+    fi
+
+    powershell.exe -NoProfile -Command "
+        Remove-Item -Path 'HKCU:\\Software\\Classes\\Directory\\shell\\cc-tmux' -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item -Path 'HKCU:\\Software\\Classes\\Directory\\Background\\shell\\cc-tmux' -Recurse -Force -ErrorAction SilentlyContinue
+    " 2>/dev/null
+
+    rm -f "$CC_TMUX_DIR/open-in-cctmux.ps1"
+    log_ok "Context menu removed"
+}

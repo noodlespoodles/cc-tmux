@@ -32,6 +32,7 @@ run_uninstall() {
     echo "    - ~/.tmux.conf"
     echo "    - ~/startup.sh"
     echo "    - Claude Workspace desktop shortcut"
+    echo "    - Windows Explorer context menu (if installed)"
     echo ""
     echo "  System packages (tmux, ngrok, fail2ban, openssh-server) will NOT be removed."
     echo ""
@@ -80,8 +81,13 @@ run_uninstall() {
     sudo service fail2ban restart 2>/dev/null || true
     if command -v powershell.exe &>/dev/null; then
         powershell.exe -NoProfile -Command "Remove-Item \"\$env:USERPROFILE\\Desktop\\Claude Workspace.lnk\" -ErrorAction SilentlyContinue" 2>/dev/null
+        # Remove context menu entries
+        powershell.exe -NoProfile -Command "
+            Remove-Item -Path 'HKCU:\\Software\\Classes\\Directory\\shell\\cc-tmux' -Recurse -Force -ErrorAction SilentlyContinue
+            Remove-Item -Path 'HKCU:\\Software\\Classes\\Directory\\Background\\shell\\cc-tmux' -Recurse -Force -ErrorAction SilentlyContinue
+        " 2>/dev/null
     fi
-    log_ok "System configs removed"
+    log_ok "System configs and shortcuts removed"
 
     # ------------------------------------------
     # Phase 3: Remove bashrc blocks (no sudo)

@@ -200,8 +200,9 @@ ENVEOF
 
 # Start ngrok tunnel, persist address, launch watchdog
 tunnel_start() {
-    # Guard: already running
+    # Guard: already running -- refresh address from live API
     if _ngrok_is_running && _ngrok_api_responds; then
+        _ngrok_persist_address
         log_ok "Tunnel already running"
         tunnel_url
         return 0
@@ -214,8 +215,9 @@ tunnel_start() {
         return 1
     fi
 
-    # Kill any leftover ngrok processes
+    # Kill any leftover ngrok processes and clear stale address
     pkill -f "ngrok tcp" 2>/dev/null
+    rm -f "$TUNNEL_ENV"
     sleep 1
 
     # Start ngrok in background

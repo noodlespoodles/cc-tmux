@@ -33,6 +33,7 @@ run_uninstall() {
     echo "    - ~/startup.sh"
     echo "    - Claude Workspace desktop shortcut"
     echo "    - Windows Explorer context menu (if installed)"
+    echo "    - Windows-side ~/.cc-tmux/ helper scripts (if deployed)"
     echo ""
     echo "  System packages (tmux, ngrok, fail2ban, openssh-server) will NOT be removed."
     echo ""
@@ -87,7 +88,16 @@ run_uninstall() {
             Remove-Item -Path 'HKCU:\\Software\\Classes\\Directory\\Background\\shell\\cc-tmux' -Recurse -Force -ErrorAction SilentlyContinue
         " 2>/dev/null
     fi
-    log_ok "System configs and shortcuts removed"
+
+    # Remove context menu PS1 from Windows filesystem
+    local win_home_path
+    win_home_path=$(get_config "WIN_HOME" 2>/dev/null) || win_home_path="/mnt/c/Users/$(get_config WIN_USERNAME 2>/dev/null)"
+    if [[ -n "$win_home_path" ]]; then
+        rm -f "$win_home_path/.cc-tmux/open-in-cctmux.ps1"
+        rmdir "$win_home_path/.cc-tmux" 2>/dev/null || true
+    fi
+
+    log_ok "System configs, shortcuts, and context menu removed"
 
     # ------------------------------------------
     # Phase 3: Remove bashrc blocks (no sudo)

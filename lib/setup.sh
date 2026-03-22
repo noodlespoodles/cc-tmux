@@ -157,6 +157,11 @@ step_deploy() {
     # Make mobile-check.sh executable (called by tmux run-shell)
     chmod 755 "$CC_TMUX_DIR/templates/mobile-check.sh"
 
+    # Make context menu helper executable (called by wsl.exe directly)
+    if [[ -f "$CC_TMUX_DIR/templates/open-in-cctmux.sh" ]]; then
+        chmod 755 "$CC_TMUX_DIR/templates/open-in-cctmux.sh"
+    fi
+
     # Deploy tmux.conf from template (substitutes __USERNAME__)
     deploy_tmux_conf
 
@@ -373,6 +378,14 @@ install_context_menu() {
     else
         log_error "open-in-cctmux.ps1 template not found"
         return 1
+    fi
+
+    # Substitute __WSL_HOME__ placeholder with actual WSL home path
+    sed -i "s|__WSL_HOME__|$HOME|g" "$win_deploy_dir/open-in-cctmux.ps1"
+
+    # Ensure WSL-side helper script is executable (called directly by wsl.exe)
+    if [[ -f "$CC_TMUX_DIR/templates/open-in-cctmux.sh" ]]; then
+        chmod 755 "$CC_TMUX_DIR/templates/open-in-cctmux.sh"
     fi
 
     # Convert WSL path to Windows path for the registry

@@ -359,11 +359,17 @@ install_context_menu() {
     local script_path
     script_path=$(get_config "CC_TMUX_REPO" 2>/dev/null) || script_path="$HOME/cc-tmux"
 
-    # Deploy the PowerShell helper to ~/.cc-tmux/
+    # Deploy the PowerShell helper to Windows filesystem
+    # (must be on Windows side so PowerShell can access it)
+    local win_home
+    win_home=$(get_config "WIN_HOME" 2>/dev/null) || win_home="/mnt/c/Users/$(get_config WIN_USERNAME 2>/dev/null)"
+    local win_deploy_dir="$win_home/.cc-tmux"
+    mkdir -p "$win_deploy_dir"
+
     if [[ -f "$script_path/templates/open-in-cctmux.ps1" ]]; then
-        cp "$script_path/templates/open-in-cctmux.ps1" "$CC_TMUX_DIR/open-in-cctmux.ps1"
+        cp "$script_path/templates/open-in-cctmux.ps1" "$win_deploy_dir/open-in-cctmux.ps1"
     elif [[ -f "$CC_TMUX_DIR/templates/open-in-cctmux.ps1" ]]; then
-        cp "$CC_TMUX_DIR/templates/open-in-cctmux.ps1" "$CC_TMUX_DIR/open-in-cctmux.ps1"
+        cp "$CC_TMUX_DIR/templates/open-in-cctmux.ps1" "$win_deploy_dir/open-in-cctmux.ps1"
     else
         log_error "open-in-cctmux.ps1 template not found"
         return 1
@@ -371,7 +377,7 @@ install_context_menu() {
 
     # Convert WSL path to Windows path for the registry
     local win_script_path
-    win_script_path=$(wslpath -w "$CC_TMUX_DIR/open-in-cctmux.ps1")
+    win_script_path=$(wslpath -w "$win_deploy_dir/open-in-cctmux.ps1")
 
     # Add registry entries for folder context menu (right-click on folder)
     # and directory background context menu (right-click in empty space)
@@ -411,6 +417,10 @@ remove_context_menu() {
         Remove-Item -Path 'HKCU:\\Software\\Classes\\Directory\\Background\\shell\\cc-tmux' -Recurse -Force -ErrorAction SilentlyContinue
     " 2>/dev/null
 
-    rm -f "$CC_TMUX_DIR/open-in-cctmux.ps1"
+    # Remove the PS1 from Windows filesystem
+    local win_home
+    win_home=$(get_config "WIN_HOME" 2>/dev/null) || win_home="/mnt/c/Users/$(get_config WIN_USERNAME 2>/dev/null)"
+    rm -f "$win_home/.cc-tmux/open-in-cctmux.ps1"
+    rmdir "$win_home/.cc-tmux" 2>/dev/null || true
     log_ok "Context menu removed"
 }

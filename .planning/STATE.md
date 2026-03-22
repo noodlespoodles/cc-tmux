@@ -118,6 +118,12 @@ None yet.
 - [Research]: tmux mobile detection via client_width needs real-device testing with Termius
 - [Research]: Self-update mechanism needs design (git pull vs release API vs version check only)
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260322-j68 | Fix Windows Explorer context menu | 2026-03-22 | bbd040a | [260322-j68-fix-windows-explorer-context-menu](./quick/260322-j68-fix-windows-explorer-context-menu/) |
+
 ## Session Continuity
 
 Last session: 2026-03-20T17:18:49.155Z
